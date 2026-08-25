@@ -4,6 +4,12 @@
   // workers.dev subdomain. Change if you want a different slug.
   "name": "portfolio",
   "compatibility_date": "2026-08-25",
+  // Workers Builds only runs the deploy command below — it does not run a
+  // separate framework build step the way Cloudflare Pages does. This makes
+  // `wrangler deploy` run the Astro build itself first.
+  "build": {
+    "command": "npm run build"
+  },
   // Astro's static build output. `npx wrangler deploy` serves this directory
   // directly as a Worker with static assets — no Worker script required.
   "assets": {

@@ -1,0 +1,31 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import TagList from './TagList.astro';
+import { formatRange } from '../utils/dates';
+
+interface Props {
+  role: CollectionEntry<'experience'>;
+}
+
+const { role } = Astro.props;
+const { title, company, client, employmentType, location, startDate, endDate, current, tags } =
+  role.data;
+const { Content } = await render(role);
+
+const organisation = client ? `${company}, client: ${client}` : company;
+const meta = [employmentType, location, formatRange(startDate, endDate, current)].filter(Boolean);
+---
+
+<article class="role">
+  <header class="role-header">
+    <h3 class="role-title">{title}</h3>
+    <p class="role-org">{organisation}</p>
+    <p class="role-meta">
+      {meta.map((item) => <span>{item}</span>)}
+    </p>
+  </header>
+  <div class="prose role-body">
+    <Content />
+  </div>
+  <TagList tags={tags} label="Skills used" />
+</article>

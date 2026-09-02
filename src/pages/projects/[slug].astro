@@ -1,6 +1,10 @@
 ---
-import { getCollection, render } from 'astro:content';
+// Standalone page for one project. This is what a shared link, a search
+// engine, or a visitor without JS sees; on the home page the same content
+// opens in a popup.
+import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectDetail from '../../components/ProjectDetail.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects', ({ data }) => !data.draft);
@@ -11,12 +15,11 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { Content } = await render(project);
 ---
 
-<BaseLayout title={project.data.title}>
-  <main>
-    <h1>{project.data.title}</h1>
-    <Content />
-  </main>
+<BaseLayout title={project.data.title} description={project.data.summary}>
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/#projects">All projects</a>
+  </nav>
+  <ProjectDetail project={project} headingId="project-title" />
 </BaseLayout>

@@ -1,9 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Experience from '../components/Experience.astro';
+import Projects from '../components/Projects.astro';
+import Skills from '../components/Skills.astro';
+import Contact from '../components/Contact.astro';
+import { profile } from '../data/profile';
 ---
 
-<BaseLayout title="Danish Silva">
-  <main>
-    <h1>Danish Silva</h1>
-  </main>
+<BaseLayout title={profile.name}>
+  <Hero />
+  <About />
+  <Experience />
+  <Projects />
+  <Skills />
+  <Contact />
 </BaseLayout>

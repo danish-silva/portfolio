@@ -2,19 +2,7 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
-// The fixed set of filter tags shown on the Projects section. Keeping this an
-// enum means a typo in a project file fails the build instead of silently
-// creating a new filter button.
-export const PROJECT_TAGS = [
-  'embedded',
-  'robotics',
-  'pcb',
-  'mechanical',
-  'controls',
-  'machine-learning',
-] as const;
-
-export type ProjectTag = (typeof PROJECT_TAGS)[number];
+import { PROJECT_TAGS } from './data/tags';
 
 const link = z.object({
   label: z.string(),

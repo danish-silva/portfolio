@@ -1,0 +1,29 @@
+---
+import { profile } from '../data/profile';
+
+// On the home page the links are plain anchors; on a project page they need
+// to go back to the home page first.
+const prefix = Astro.url.pathname === '/' ? '' : '/';
+
+const links = [
+  ['about', 'About'],
+  ['experience', 'Experience'],
+  ['projects', 'Projects'],
+  ['skills', 'Skills'],
+  ['contact', 'Contact'],
+] as const;
+---
+
+<header class="site-header">
+  <nav class="site-nav" aria-label="Primary">
+    <a class="brand" href="/">{profile.name}</a>
+    <ul>
+      {links.map(([id, label]) => (
+        <li>
+          <a href={`${prefix}#${id}`}>{label}</a>
+        </li>
+      ))}
+    </ul>
+    <!-- Theme toggle lands in the styling step. -->
+  </nav>
+</header>

@@ -1,0 +1,24 @@
+---
+// Native <dialog> holding one project's full writeup. Gives focus trapping,
+// Escape to close and focus restore without any library. The inner wrapper
+// carries the padding so a click on the backdrop is distinguishable from a
+// click inside the content.
+import type { CollectionEntry } from 'astro:content';
+import ProjectDetail from './ProjectDetail.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const id = `project-${project.id}`;
+---
+
+<dialog class="project-dialog" id={id} aria-labelledby={`${id}-title`}>
+  <div class="project-dialog-inner">
+    <div class="project-dialog-bar">
+      <button type="button" class="button project-dialog-close" data-project-close>Close</button>
+    </div>
+    <ProjectDetail project={project} headingId={`${id}-title`} />
+  </div>
+</dialog>

@@ -1,0 +1,21 @@
+---
+import { profile } from '../data/profile';
+---
+
+<section class="hero" aria-labelledby="hero-heading">
+  <p class="hero-location">{profile.location}</p>
+  <h1 id="hero-heading">{profile.name}</h1>
+  <p class="hero-tagline">{profile.tagline}</p>
+  <ul class="hero-keywords" aria-label="Areas of interest">
+    {profile.keywords.map((keyword) => <li>{keyword}</li>)}
+  </ul>
+  <div class="hero-actions">
+    <a class="button button-primary" href={profile.cta.primary.href}>{profile.cta.primary.label}</a>
+    <a class="button" href={profile.cta.secondary.href}>{profile.cta.secondary.label}</a>
+    <a class="button" href={profile.cta.tertiary.href} download>{profile.cta.tertiary.label}</a>
+  </div>
+  <ul class="hero-links" aria-label="Profiles">
+    <li><a href={profile.github} rel="me noopener">GitHub</a></li>
+    <li><a href={profile.linkedin} rel="me noopener">LinkedIn</a></li>
+  </ul>
+</section>

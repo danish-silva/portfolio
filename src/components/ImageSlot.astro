@@ -1,0 +1,20 @@
+---
+// A clearly labelled empty box that stands in for an image that has not been
+// supplied yet. Never a stock image. See ASSETS.md for the list.
+
+interface Props {
+  label: string;
+  ratio?: string;
+}
+
+const { label, ratio = '16 / 9' } = Astro.props;
+---
+
+<div
+  class="image-slot"
+  style={`aspect-ratio: ${ratio};`}
+  role="img"
+  aria-label={`Image not yet supplied: ${label}`}
+>
+  <span>Image slot: {label}</span>
+</div>

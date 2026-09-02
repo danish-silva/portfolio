@@ -1,0 +1,123 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+import ProjectDialog from './ProjectDialog.astro';
+import ProjectFilter from './ProjectFilter.astro';
+import SectionHeading from './SectionHeading.astro';
+import { PROJECT_TAGS } from '../data/tags';
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+// Only offer filters for tags that at least one published project carries.
+const tagsInUse = PROJECT_TAGS.filter((tag) => projects.some((p) => p.data.tags.includes(tag)));
+---
+
+<section id="projects" class="section" aria-labelledby="projects-heading">
+  <SectionHeading id="projects-heading">Projects</SectionHeading>
+
+  {tagsInUse.length > 1 && <ProjectFilter tags={tagsInUse} />}
+
+  <ul class="project-grid" data-project-grid>
+    {
+      projects.map((project) => (
+        <li data-tags={project.data.tags.join(' ')}>
+          <ProjectCard project={project} />
+        </li>
+      ))
+    }
+  </ul>
+
+  {projects.map((project) => <ProjectDialog project={project} />)}
+</section>
+
+<script>
+  // Tag filtering. Cards are hidden or shown in place; nothing is fetched.
+  const grid = document.querySelector<HTMLElement>('[data-project-grid]');
+  const filter = document.querySelector<HTMLElement>('[data-project-filter]');
+
+  if (grid && filter) {
+    const buttons = Array.from(filter.querySelectorAll<HTMLButtonElement>('button[data-filter]'));
+    const items = Array.from(grid.querySelectorAll<HTMLElement>('li[data-tags]'));
+
+    filter.addEventListener('click', (event) => {
+      const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button[data-filter]');
+      if (!button) return;
+      const tag = button.dataset.filter ?? 'all';
+      for (const b of buttons) b.setAttribute('aria-pressed', String(b === button));
+      for (const item of items) {
+        const tags = (item.dataset.tags ?? '').split(' ');
+        item.hidden = tag !== 'all' && !tags.includes(tag);
+      }
+    });
+
+    filter.hidden = false;
+  }
+
+  // Popup. A card is a real link to /projects/<slug>; with JS available the
+  // click opens the matching <dialog> instead and pushes the project URL so
+  // it can be copied and so the Back button closes the popup.
+  let openDialog: HTMLDialogElement | null = null;
+  let pushedState = false;
+
+  // Every close path (button, backdrop, Escape, Back) comes through here so
+  // the history entry pushed on open is popped exactly once.
+  function closeProject(dialog: HTMLDialogElement, fromHistory = false) {
+    if (!dialog.open) return;
+    const goBack = pushedState && !fromHistory;
+    pushedState = false;
+    openDialog = null;
+    dialog.close();
+    if (goBack) history.back();
+  }
+
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+
+    const link = target.closest<HTMLAnchorElement>('a[data-project-link]');
+    if (link) {
+      const dialog = document.getElementById(`project-${link.dataset.projectLink}`);
+      if (!(dialog instanceof HTMLDialogElement) || typeof dialog.showModal !== 'function') return;
+      event.preventDefault();
+      openDialog = dialog;
+      dialog.showModal();
+      dialog.scrollTop = 0;
+      history.pushState({ project: link.dataset.projectLink }, '', link.href);
+      pushedState = true;
+      return;
+    }
+
+    const closeButton = target.closest<HTMLButtonElement>('[data-project-close]');
+    if (closeButton) {
+      const dialog = closeButton.closest('dialog');
+      if (dialog instanceof HTMLDialogElement) closeProject(dialog);
+    }
+  });
+
+  for (const dialog of document.querySelectorAll<HTMLDialogElement>('dialog.project-dialog')) {
+    // The inner wrapper carries the padding, so a click whose target is the
+    // dialog element itself landed on the backdrop.
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) closeProject(dialog);
+    });
+    // Escape. Take over from the native close so the history entry is popped.
+    dialog.addEventListener('cancel', (event) => {
+      event.preventDefault();
+      closeProject(dialog);
+    });
+  }
+
+  window.addEventListener('popstate', (event) => {
+    if (openDialog) closeProject(openDialog, true);
+    // Forward after closing lands back on the project entry: reopen it.
+    const project = (event.state as { project?: string } | null)?.project;
+    if (!project) return;
+    const dialog = document.getElementById(`project-${project}`);
+    if (dialog instanceof HTMLDialogElement && !dialog.open) {
+      openDialog = dialog;
+      pushedState = true;
+      dialog.showModal();
+    }
+  });
+</script>

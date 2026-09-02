@@ -1,0 +1,102 @@
+---
+// Full project writeup. Rendered inside the popup on the home page and on
+// the standalone /projects/<slug> page, so there is one source of markup.
+// The title is an h1 in both places: a modal dialog is its own document-like
+// context, and closed dialogs are not in the accessibility tree.
+import { Image } from 'astro:assets';
+import { render, type CollectionEntry } from 'astro:content';
+import ImageSlot from './ImageSlot.astro';
+import TagList from './TagList.astro';
+import { formatRange } from '../utils/dates';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  headingId: string;
+}
+
+const { project, headingId } = Astro.props;
+const { title, summary, startDate, endDate, ongoing, tags, tools, links, cover, gallery, video } =
+  project.data;
+const { Content } = await render(project);
+const dates = formatRange(startDate, endDate, ongoing);
+---
+
+<article class="project-detail">
+  <header class="project-detail-header">
+    <h1 id={headingId}>{title}</h1>
+    {dates && <p class="project-dates">{dates}</p>}
+    {summary && <p class="project-summary">{summary}</p>}
+    <TagList tags={tags} />
+  </header>
+
+  <figure class="project-cover">
+    {
+      cover ? (
+        <Image
+          src={cover.src}
+          alt={cover.alt}
+          widths={[480, 800, 1200]}
+          sizes="(min-width: 60rem) 56rem, 100vw"
+        />
+      ) : (
+        <ImageSlot label={`cover image for ${title}`} />
+      )
+    }
+  </figure>
+
+  <div class="prose project-body">
+    <Content />
+  </div>
+
+  {
+    video && (
+      <figure class="project-video">
+        <video controls preload="metadata" src={video.src} poster={video.poster?.src} />
+        {video.caption && <figcaption>{video.caption}</figcaption>}
+      </figure>
+    )
+  }
+
+  {
+    gallery.length > 0 && (
+      <ul class="project-gallery">
+        {gallery.map((item) => (
+          <li>
+            <figure>
+              <Image src={item.src} alt={item.alt} widths={[400, 800]} sizes="(min-width: 60rem) 28rem, 100vw" />
+              {item.caption && <figcaption>{item.caption}</figcaption>}
+            </figure>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  {
+    tools.length > 0 && (
+      <section class="project-tools" aria-labelledby={`${headingId}-tools`}>
+        <h2 id={`${headingId}-tools`}>Tools and technologies</h2>
+        <ul class="tag-list">
+          {tools.map((tool) => (
+            <li>{tool}</li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  {
+    links.length > 0 && (
+      <section class="project-links" aria-labelledby={`${headingId}-links`}>
+        <h2 id={`${headingId}-links`}>Links</h2>
+        <ul>
+          {links.map((link) => (
+            <li>
+              <a href={link.url} rel="noopener">{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</article>

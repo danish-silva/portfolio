@@ -1,0 +1,15 @@
+---
+import { Content as AboutContent } from '../content/about.md';
+import EducationCard from './EducationCard.astro';
+import SectionHeading from './SectionHeading.astro';
+---
+
+<section id="about" class="section" aria-labelledby="about-heading">
+  <SectionHeading id="about-heading">About me</SectionHeading>
+  <div class="about-layout">
+    <div class="prose">
+      <AboutContent />
+    </div>
+    <EducationCard />
+  </div>
+</section>

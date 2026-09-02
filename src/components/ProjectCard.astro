@@ -1,0 +1,35 @@
+---
+// Summary card. It is a real link to the standalone page; the script in
+// Projects.astro intercepts the click and opens the popup instead.
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import ImageSlot from './ImageSlot.astro';
+import TagList from './TagList.astro';
+import { formatRange } from '../utils/dates';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { title, summary, startDate, endDate, ongoing, tags, cover } = project.data;
+const dates = formatRange(startDate, endDate, ongoing);
+---
+
+<a class="project-card" href={`/projects/${project.id}`} data-project-link={project.id}>
+  <div class="project-card-media">
+    {
+      cover ? (
+        <Image src={cover.src} alt={cover.alt} widths={[400, 800]} sizes="(min-width: 40rem) 24rem, 100vw" />
+      ) : (
+        <ImageSlot label={`cover image for ${title}`} />
+      )
+    }
+  </div>
+  <div class="project-card-body">
+    <h3 class="project-card-title">{title}</h3>
+    {summary && <p class="project-card-summary">{summary}</p>}
+    {dates && <p class="project-card-dates">{dates}</p>}
+    <TagList tags={tags} />
+  </div>
+</a>

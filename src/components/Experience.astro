@@ -1,0 +1,14 @@
+---
+import { getCollection } from 'astro:content';
+import ExperienceItem from './ExperienceItem.astro';
+import SectionHeading from './SectionHeading.astro';
+
+const roles = (await getCollection('experience')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<section id="experience" class="section" aria-labelledby="experience-heading">
+  <SectionHeading id="experience-heading">Experience</SectionHeading>
+  <div class="role-list">
+    {roles.map((role) => <ExperienceItem role={role} />)}
+  </div>
+</section>

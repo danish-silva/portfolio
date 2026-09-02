@@ -1,0 +1,27 @@
+---
+import { profile } from '../data/profile';
+import SectionHeading from './SectionHeading.astro';
+---
+
+<section id="contact" class="section" aria-labelledby="contact-heading">
+  <SectionHeading id="contact-heading">Contact</SectionHeading>
+  <p class="contact-availability">{profile.availability}</p>
+  <ul class="contact-list">
+    <li>
+      <span>Email</span>
+      <a href={`mailto:${profile.email}`}>{profile.email}</a>
+    </li>
+    <li>
+      <span>LinkedIn</span>
+      <a href={profile.linkedin} rel="me noopener">{profile.linkedin.replace('https://', '')}</a>
+    </li>
+    <li>
+      <span>GitHub</span>
+      <a href={profile.github} rel="me noopener">{profile.github.replace('https://', '')}</a>
+    </li>
+    <li>
+      <span>Resume</span>
+      <a href={profile.resume} download>Download PDF</a>
+    </li>
+  </ul>
+</section>

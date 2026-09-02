@@ -17,3 +17,8 @@ dist/
 .DS_Store
 .vscode/*
 !.vscode/extensions.json
+
+# agent skills installed locally with `npx skills add` (not published)
+.agents/
+.claude/
+skills-lock.json

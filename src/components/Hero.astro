@@ -13,9 +13,9 @@ import { profile } from '../data/profile';
     <a class="button button-primary" href={profile.cta.primary.href}>{profile.cta.primary.label}</a>
     <a class="button" href={profile.cta.secondary.href}>{profile.cta.secondary.label}</a>
     <a class="button" href={profile.cta.tertiary.href} download>{profile.cta.tertiary.label}</a>
+    <ul class="hero-links" aria-label="Profiles">
+      <li><a href={profile.github} rel="me noopener">GitHub</a></li>
+      <li><a href={profile.linkedin} rel="me noopener">LinkedIn</a></li>
+    </ul>
   </div>
-  <ul class="hero-links" aria-label="Profiles">
-    <li><a href={profile.github} rel="me noopener">GitHub</a></li>
-    <li><a href={profile.linkedin} rel="me noopener">LinkedIn</a></li>
-  </ul>
 </section>

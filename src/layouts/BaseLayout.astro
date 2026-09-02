@@ -21,6 +21,20 @@ const fullTitle = title === profile.name ? title : `${title} | ${profile.name}`;
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <!-- Favicon, canonical and Open Graph tags are added in the polish step. -->
+    <script is:inline>
+      // Apply a stored theme choice before first paint so there is no flash.
+      // Without a stored choice the CSS follows prefers-color-scheme.
+      (function () {
+        try {
+          var theme = localStorage.getItem('theme');
+          if (theme === 'light' || theme === 'dark') {
+            document.documentElement.setAttribute('data-theme', theme);
+          }
+        } catch (error) {
+          /* storage unavailable: fall through to the system preference */
+        }
+      })();
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

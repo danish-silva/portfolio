@@ -5,11 +5,13 @@ const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
-  <ul class="footer-links">
-    <li><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
-    <li><a href={profile.github} rel="me noopener">GitHub</a></li>
-    <li><a href={profile.linkedin} rel="me noopener">LinkedIn</a></li>
-    <li><a href={profile.resume} download>Resume (PDF)</a></li>
-  </ul>
-  <p class="footer-note">{profile.name}, {profile.location}. {year}.</p>
+  <div class="site-footer-inner">
+    <ul class="footer-links">
+      <li><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
+      <li><a href={profile.github} rel="me noopener">GitHub</a></li>
+      <li><a href={profile.linkedin} rel="me noopener">LinkedIn</a></li>
+      <li><a href={profile.resume} download>Resume (PDF)</a></li>
+    </ul>
+    <p class="footer-note">{profile.name}, {profile.location}. {year}.</p>
+  </div>
 </footer>

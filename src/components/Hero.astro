@@ -1,5 +1,6 @@
 ---
 import { profile } from '../data/profile';
+import Icon from './icons/Icon.astro';
 import GitHubIcon from './icons/GitHubIcon.astro';
 import LinkedInIcon from './icons/LinkedInIcon.astro';
 ---
@@ -10,17 +11,19 @@ import LinkedInIcon from './icons/LinkedInIcon.astro';
   <ul class="hero-keywords" aria-label="Areas of interest">
     {profile.keywords.map((keyword) => <li>{keyword}</li>)}
   </ul>
-  <div class="hero-actions">
-    <a class="button button-primary" href={profile.cta.primary.href}>{profile.cta.primary.label}</a>
-    <a class="button" href={profile.cta.secondary.href}>{profile.cta.secondary.label}</a>
-    <a class="button" href={profile.cta.tertiary.href} download>{profile.cta.tertiary.label}</a>
-    <ul class="hero-links" aria-label="Profiles">
-      <li>
-        <a class="button" href={profile.github} rel="me noopener"><GitHubIcon />GitHub</a>
-      </li>
-      <li>
-        <a class="button" href={profile.linkedin} rel="me noopener"><LinkedInIcon />LinkedIn</a>
-      </li>
-    </ul>
-  </div>
+  <ul class="hero-actions" aria-label="Primary actions">
+    <li>
+      <a class="button button-primary" href={profile.cta.primary.href}>
+        {profile.cta.primary.label}
+      </a>
+    </li>
+    <li><a class="button" href={profile.cta.secondary.href}>{profile.cta.secondary.label}</a></li>
+    <li><a class="button" href={profile.linkedin} rel="me noopener"><LinkedInIcon />LinkedIn</a></li>
+    <li><a class="button" href={profile.github} rel="me noopener"><GitHubIcon />GitHub</a></li>
+    <li>
+      <a class="button" href={profile.resume} download>
+        <Icon name="download" />{profile.cta.tertiary.label}
+      </a>
+    </li>
+  </ul>
 </section>

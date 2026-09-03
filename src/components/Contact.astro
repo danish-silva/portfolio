@@ -15,17 +15,13 @@ import LinkedInIcon from './icons/LinkedInIcon.astro';
         <Icon name="mail" />Email Me
       </a>
     </li>
+    <li class="contact-email"><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
+    <li><a class="button" href={profile.linkedin} rel="me noopener"><LinkedInIcon />LinkedIn</a></li>
+    <li><a class="button" href={profile.github} rel="me noopener"><GitHubIcon />GitHub</a></li>
     <li>
-      <a class="button" href={profile.github} rel="me noopener"><GitHubIcon />GitHub</a>
-    </li>
-    <li>
-      <a class="button" href={profile.linkedin} rel="me noopener"><LinkedInIcon />LinkedIn</a>
-    </li>
-    <li>
-      <a class="button" href={profile.resume} download><Icon name="download" />Resume</a>
+      <a class="button" href={profile.resume} download>
+        <Icon name="download" />{profile.cta.tertiary.label}
+      </a>
     </li>
   </ul>
-  <p class="contact-email" data-reveal>
-    <a href={`mailto:${profile.email}`}>{profile.email}</a>
-  </p>
 </section>

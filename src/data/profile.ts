@@ -22,6 +22,6 @@ export const profile = {
   cta: {
     primary: { label: 'See My Projects', href: '#projects' },
     secondary: { label: 'Get in Touch', href: '#contact' },
-    tertiary: { label: 'Download Resume', href: '/Danish-Silva-Resume.pdf' },
+    tertiary: { label: 'Resume', href: '/Danish-Silva-Resume.pdf' },
   },
 } as const;

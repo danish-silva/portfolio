@@ -212,7 +212,7 @@ ol {
 
 /* Lists that are laid out, not bulleted */
 .site-nav ul,
-.hero-links,
+.hero-actions,
 .hero-keywords,
 .tag-list,
 .contact-actions,
@@ -509,18 +509,21 @@ main {
   color: var(--border-strong);
 }
 
-.hero-actions {
+.hero-actions,
+.contact-actions {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 0.625rem;
-  margin-block-start: 2rem;
+  align-items: stretch;
+  gap: 0.75rem;
 }
 
-.hero-links {
+.hero-actions > li,
+.contact-actions > li {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.625rem;
+}
+
+.hero-actions {
+  margin-block-start: 2.5rem;
 }
 
 /* ---------- About ---------- */
@@ -917,12 +920,6 @@ figcaption {
   margin-block-end: 1.5rem;
 }
 
-.contact-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
 /*
   Mono, because the address is read character by character and copied, not
   skimmed. Boxed on the button geometry so it lines up with the row above,
@@ -933,12 +930,12 @@ figcaption {
   display: inline-flex;
   align-items: center;
   min-height: 2.875rem;
-  margin-block-start: 1rem;
   padding: 0.6rem 1.15rem;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   font-family: var(--font-mono);
   font-size: 1rem;
+  line-height: 1.2;
 }
 
 /* ---------- Footer ---------- */

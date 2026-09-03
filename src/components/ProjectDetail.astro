@@ -6,6 +6,7 @@
 import { Image } from 'astro:assets';
 import { render, type CollectionEntry } from 'astro:content';
 import ImageSlot from './ImageSlot.astro';
+import GitHubIcon from './icons/GitHubIcon.astro';
 import TagList from './TagList.astro';
 import { formatRange } from '../utils/dates';
 
@@ -19,6 +20,16 @@ const { title, summary, startDate, endDate, ongoing, tags, tools, links, cover, 
   project.data;
 const { Content } = await render(project);
 const dates = formatRange(startDate, endDate, ongoing);
+
+// Only GitHub links get the mark. Anything else stays a plain button rather
+// than borrowing an icon that does not belong to it.
+function isGitHub(url: string): boolean {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '') === 'github.com';
+  } catch {
+    return false;
+  }
+}
 ---
 
 <article class="project-detail">
@@ -92,7 +103,10 @@ const dates = formatRange(startDate, endDate, ongoing);
         <ul>
           {links.map((link) => (
             <li>
-              <a href={link.url} rel="noopener">{link.label}</a>
+              <a class="button" href={link.url} rel="noopener">
+                {isGitHub(link.url) && <GitHubIcon />}
+                {link.label}
+              </a>
             </li>
           ))}
         </ul>

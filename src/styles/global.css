@@ -145,30 +145,40 @@ a:hover {
   border-radius: 2px;
 }
 
+/*
+  Every heading is set in capitals. Capitals need positive tracking, and the
+  amount is size specific: large display capitals need almost none, small ones
+  need the most, otherwise they read as a solid block. Set with
+  text-transform rather than uppercase source text so screen readers and the
+  page title still get the real words.
+*/
 h1,
 h2,
 h3 {
   margin: 0;
   font-weight: 650;
-  line-height: 1.15;
-  letter-spacing: -0.015em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
   text-wrap: balance;
 }
 
 h1 {
-  font-size: clamp(2rem, 1.3rem + 2.8vw, 3rem);
+  font-size: clamp(1.875rem, 1.2rem + 2.7vw, 2.75rem);
   font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.025em;
+  line-height: 1.1;
+  letter-spacing: 0.005em;
 }
 
 h2 {
-  font-size: clamp(1.5rem, 1.25rem + 1vw, 1.875rem);
+  font-size: clamp(1.375rem, 1.15rem + 0.9vw, 1.625rem);
+  letter-spacing: 0.02em;
 }
 
 h3 {
-  font-size: 1.125rem;
+  font-size: 1.0625rem;
   font-weight: 600;
+  letter-spacing: 0.035em;
 }
 
 p {
@@ -224,8 +234,9 @@ main {
 }
 
 .prose h2 {
-  font-size: 1.125rem;
+  font-size: 1rem;
   color: var(--text);
+  letter-spacing: 0.05em;
   margin-block: 2rem 0.5rem;
 }
 
@@ -322,6 +333,13 @@ main {
   background: var(--button-bg-hover);
   border-color: var(--button-bg-hover);
   color: var(--button-text);
+}
+
+.button .icon {
+  flex: none;
+  margin-inline-end: 0.5rem;
+  /* The mark reads slightly high against uppercase text. */
+  transform: translateY(0.5px);
 }
 
 .button-small {
@@ -475,9 +493,10 @@ main {
 }
 
 .education-card h3 {
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--muted);
+  letter-spacing: 0.09em;
   margin-block-end: 0.75rem;
 }
 
@@ -795,14 +814,15 @@ figcaption {
 
 .project-tools h2,
 .project-links h2 {
-  font-size: 1rem;
+  font-size: 0.9375rem;
+  letter-spacing: 0.06em;
   margin-block-end: 0.75rem;
 }
 
 .project-links ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 1.5rem;
+  gap: 0.625rem;
 }
 
 .breadcrumb {
@@ -819,8 +839,9 @@ figcaption {
 }
 
 .skill-group h3 {
-  font-size: 0.9375rem;
-  margin-block-end: 0.35rem;
+  font-size: 0.875rem;
+  letter-spacing: 0.06em;
+  margin-block-end: 0.4rem;
 }
 
 .skill-group ul {

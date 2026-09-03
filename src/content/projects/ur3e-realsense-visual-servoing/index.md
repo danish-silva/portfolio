@@ -11,6 +11,7 @@ tools:
   - OpenCV
   - ROS
   - rosbridge
+  - pyrealsense2
   - Intel RealSense D435
   - Universal Robots UR3e
 links:

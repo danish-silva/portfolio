@@ -5,6 +5,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectDetail from '../../components/ProjectDetail.astro';
+import Icon from '../../components/icons/Icon.astro';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects', ({ data }) => !data.draft);
@@ -19,7 +20,9 @@ const { project } = Astro.props;
 
 <BaseLayout title={project.data.title} description={project.data.summary}>
   <nav class="breadcrumb" aria-label="Breadcrumb">
-    <a class="button button-primary breadcrumb-back" href="/#projects">Return to Projects</a>
+    <a class="button button-primary breadcrumb-back" href="/#projects">
+      <Icon name="arrow-left" />Projects
+    </a>
   </nav>
   <ProjectDetail project={project} headingId="project-title" />
 </BaseLayout>

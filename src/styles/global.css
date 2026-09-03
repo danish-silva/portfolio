@@ -1148,6 +1148,23 @@ figcaption {
   border-radius: 999px;
 }
 
+.breadcrumb-back .icon {
+  transition: transform var(--dur) var(--ease-out);
+}
+
+/* The arrow travels the way it points, matching the one in the contact box. */
+@media (hover: hover) and (pointer: fine) {
+  .breadcrumb-back:hover .icon {
+    transform: translateX(-3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .breadcrumb-back:hover .icon {
+    transform: none;
+  }
+}
+
 /* ---------- Skills ---------- */
 
 .skills-grid {

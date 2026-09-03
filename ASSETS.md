@@ -58,14 +58,15 @@ No images planned. The Optik Consultancy entry is text only, and anything showin
 
 ### MEMS-Based Step Tracker PCB
 
+Written up. Files go in `src/content/projects/mems-step-tracker-pcb/`, beside `index.md`.
+
 | Asset | Status | Priority | Notes |
 | --- | --- | --- | --- |
-| Cover: Altium 3D render of the assembled shield | software | launch | Altium Designer, View 3D, export PNG on a white or dark background. If you have the fabricated board, a photo can stand in. |
-| Photo: fabricated and assembled board | photograph or confirm | strong | Do you have the physical board? |
-| Schematic crop: 3.3 V LDO regulation with OCP and OVP | software | strong | Altium schematic export, cropped to the PSU section. This is the part you owned, so it deserves its own image. |
-| Plot: LTspice simulation showing current draw and protection threshold behaviour | regenerate or confirm | strong | LTspice is free; needs the .asc file. |
-| Layout screenshot: full board, top and bottom layers | software | nice | Altium 2D layout export. |
-| Diagram: board block diagram showing PSU, ESP32, accelerometer, signal conditioning, peripherals | generate | nice | Inline SVG. |
+| Cover: Altium 3D render or a photo of the assembled shield | exists | launch | You have both. Pick whichever reads better small; the render is usually cleaner as a card cover. |
+| Schematic crop: 3.3V regulator with over-current and over-voltage protection | exists | strong | The part you owned, and the part the writeup spends most time on. Crop to the PSU section rather than exporting the whole sheet. |
+| Photo: fabricated board seated on the ESP32 dev board | exists | strong | Shows the size constraint the whole project turned on, which no render conveys. |
+| Plot: LTspice current draw and protection thresholds | missing | nice | You no longer have the simulation. Only worth redoing if you happen to rebuild the model; the writeup stands without it. |
+| Layout screenshot: top and bottom copper | software | nice | Altium 2D export, if you want to show the routing you did. |
 
 ### BrickPickNPlace
 

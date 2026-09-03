@@ -1,6 +1,7 @@
 ---
 title: ESP32 Spotify Player
 # One line shown on the project card. Required before draft can be false.
+# Keep the quotes: a colon followed by a space is a mapping in unquoted YAML.
 # summary: ""
 # Dates are shown at month granularity; use the first of the month.
 # startDate:

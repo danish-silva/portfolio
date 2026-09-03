@@ -66,6 +66,7 @@ Written up. Files go in `src/content/projects/mems-step-tracker-pcb/`, beside `i
 | Schematic crop: 3.3V regulator with over-current and over-voltage protection | exists | strong | The part you owned, and the part the writeup spends most time on. Crop to the PSU section rather than exporting the whole sheet. |
 | Photo: fabricated board seated on the ESP32 dev board | exists | strong | Shows the size constraint the whole project turned on, which no render conveys. |
 | Plot: LTspice current draw and protection thresholds | missing | nice | You no longer have the simulation. Only worth redoing if you happen to rebuild the model; the writeup stands without it. |
+| Photo: OLED showing a live step count | photograph | strong | You have the board. A shot of the menu or a step count on the display is the one asset that proves the firmware runs, which no render or schematic can do. |
 | Layout screenshot: top and bottom copper | software | nice | Altium 2D export, if you want to show the routing you did. |
 
 ### BrickPickNPlace

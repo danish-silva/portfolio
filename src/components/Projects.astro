@@ -19,7 +19,7 @@ const tagsInUse = PROJECT_TAGS.filter((tag) => projects.some((p) => p.data.tags.
 
   {tagsInUse.length > 1 && <ProjectFilter tags={tagsInUse} />}
 
-  <ul class="project-grid" data-project-grid>
+  <ul class="project-grid" data-project-grid data-reveal-group>
     {
       projects.map((project) => (
         <li data-tags={project.data.tags.join(' ')}>

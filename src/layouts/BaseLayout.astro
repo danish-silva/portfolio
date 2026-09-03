@@ -24,6 +24,12 @@ const fullTitle = title === profile.name ? title : `${title} | ${profile.name}`;
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <!-- Favicon, canonical and Open Graph tags are added in the polish step. -->
+    <script is:inline>
+      // Arm the scroll reveal before the first paint. Doing this here rather
+      // than in the module below is what stops content painting and then
+      // jumping. If the module never runs, its failure path un-arms this.
+      document.documentElement.dataset.reveal = 'on';
+    </script>
   </head>
   <body>
     <div class="site-bg" aria-hidden="true" style={`--bg-dim: ${background.dim}`}>
@@ -35,5 +41,52 @@ const fullTitle = title === profile.name ? title : `${title} | ${profile.name}`;
       <slot />
     </main>
     <Footer />
+
+    <script>
+      // Reveal on scroll. No scroll listener: those run on every frame and
+      // cannot be batched. IntersectionObserver does the same job off the
+      // main thread's critical path.
+      const root = document.documentElement;
+
+      function revealEverything() {
+        root.dataset.reveal = 'off';
+      }
+
+      try {
+        if (!('IntersectionObserver' in window)) {
+          revealEverything();
+        } else {
+          // Children of a group animate in sequence. The cap keeps the last
+          // item in a long grid from waiting noticeably.
+          for (const group of document.querySelectorAll('[data-reveal-group]')) {
+            [...group.children].forEach((child, index) => {
+              if (!(child instanceof HTMLElement)) return;
+              child.setAttribute('data-reveal', '');
+              child.style.setProperty('--reveal-index', String(Math.min(index, 6)));
+            });
+          }
+
+          const observer = new IntersectionObserver(
+            (entries) => {
+              for (const entry of entries) {
+                if (!entry.isIntersecting) continue;
+                entry.target.setAttribute('data-visible', '');
+                observer.unobserve(entry.target);
+              }
+            },
+            // Start slightly before the element is fully in view, so the
+            // motion finishes about when the reader arrives at it.
+            { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
+          );
+
+          for (const element of document.querySelectorAll('[data-reveal]')) {
+            observer.observe(element);
+          }
+        }
+      } catch {
+        // Never leave the page hidden because the animation failed.
+        revealEverything();
+      }
+    </script>
   </body>
 </html>

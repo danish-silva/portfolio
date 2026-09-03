@@ -5,8 +5,8 @@ import SectionHeading from './SectionHeading.astro';
 
 <section id="contact" class="section" aria-labelledby="contact-heading">
   <SectionHeading id="contact-heading">Contact</SectionHeading>
-  <p class="contact-availability">{profile.availability}</p>
-  <ul class="contact-list">
+  <p class="contact-availability" data-reveal>{profile.availability}</p>
+  <ul class="contact-list" data-reveal-group>
     <li>
       <span>Email</span>
       <a href={`mailto:${profile.email}`}>{profile.email}</a>

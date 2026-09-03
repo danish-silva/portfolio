@@ -8,7 +8,7 @@ const roles = (await getCollection('experience')).sort((a, b) => a.data.order - 
 
 <section id="experience" class="section" aria-labelledby="experience-heading">
   <SectionHeading id="experience-heading">Experience</SectionHeading>
-  <div class="role-list">
+  <div class="role-list" data-reveal-group>
     {roles.map((role) => <ExperienceItem role={role} />)}
   </div>
 </section>

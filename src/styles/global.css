@@ -35,11 +35,14 @@
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --dur-fast: 160ms;
   --dur: 200ms;
+  /* Scroll reveal is a marketing surface, so it runs longer than the 300ms
+     ceiling that applies to UI feedback. */
+  --dur-reveal: 600ms;
 
   --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-mono: ui-monospace, 'Cascadia Mono', 'SF Mono', Menlo, Consolas, monospace;
 
-  --column: 56rem;
+  --column: 64rem;
   --gutter: clamp(1rem, 4vw, 2rem);
 }
 
@@ -68,8 +71,8 @@ body {
   /* the .site-bg layer paints over this */
   color: var(--text);
   font-family: var(--font-sans);
-  font-size: 1rem;
-  line-height: 1.6;
+  font-size: 1.0625rem;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -157,26 +160,44 @@ h1,
 h2,
 h3 {
   margin: 0;
-  font-weight: 650;
+  font-weight: 700;
   line-height: 1.15;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
+/* Tracking tightens as size grows, which is what stops large display type
+   reading as loose. */
 h1 {
-  font-size: clamp(2rem, 1.3rem + 2.8vw, 3rem);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.025em;
+  font-size: clamp(2rem, 1.4rem + 3vw, 3rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
 }
 
 h2 {
-  font-size: clamp(1.5rem, 1.25rem + 1vw, 1.875rem);
+  font-size: clamp(1.875rem, 1.35rem + 2.6vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
 }
 
 h3 {
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+/* The name is the largest thing on the site. */
+.hero h1 {
+  font-size: clamp(2.75rem, 1.6rem + 5.6vw, 5.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+/* A project title is bold but must not compete with the name, and it has to
+   sit inside the popup as well as its own page. */
+.project-detail h1 {
+  font-size: clamp(1.875rem, 1.35rem + 2.6vw, 2.75rem);
 }
 
 p {
@@ -214,12 +235,12 @@ main {
 }
 
 .section {
-  padding-block: clamp(3rem, 6vw, 5rem);
+  padding-block: clamp(4rem, 9vw, 7.5rem);
   border-top: 1px solid var(--border);
 }
 
 .section-heading {
-  margin-block-end: clamp(1.5rem, 3vw, 2.5rem);
+  margin-block-end: clamp(2rem, 4vw, 3.5rem);
 }
 
 .prose {
@@ -283,21 +304,62 @@ main {
   transform: none;
 }
 
+/* ---------- Scroll reveal ---------- */
+
+/*
+  Armed by an inline script in the head, so the hidden state exists before the
+  first paint and content never appears and then jumps. Everything is scoped
+  to [data-reveal='on']: with JavaScript off nothing arms it and the whole
+  page is simply visible, which is the behaviour that matters most here.
+
+  Only transform and opacity animate, both of which skip layout and paint.
+  Each element fires once; re-animating on every scroll past is an interface
+  fighting its reader.
+*/
+[data-reveal='on'] [data-reveal] {
+  opacity: 0;
+  transform: translateY(1.5rem);
+  transition:
+    opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+  transition-delay: calc(var(--reveal-index, 0) * 70ms);
+  will-change: transform, opacity;
+}
+
+[data-reveal='on'] [data-reveal][data-visible] {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/*
+  Reduced motion means gentler, not absent. The fade still signals that new
+  content has arrived; the movement, which is the part that causes trouble,
+  is dropped along with the stagger.
+*/
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal='on'] [data-reveal] {
+    transform: none;
+    transition: opacity 300ms ease;
+    transition-delay: 0ms;
+  }
+}
+
 /* ---------- Buttons ---------- */
 
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.5rem;
-  padding: 0.5rem 1rem;
+  min-height: 2.875rem;
+  padding: 0.6rem 1.15rem;
   border: 1px solid var(--border-ui);
   border-radius: var(--radius);
   background: var(--surface);
   color: var(--text);
   font: inherit;
-  font-size: 0.9375rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 550;
   line-height: 1.2;
   text-decoration: none;
   white-space: nowrap;
@@ -419,7 +481,7 @@ main {
 /* ---------- Hero ---------- */
 
 .hero {
-  padding-block: clamp(3rem, 8vw, 6rem) clamp(2.5rem, 6vw, 4rem);
+  padding-block: clamp(4rem, 11vw, 8rem) clamp(3rem, 7vw, 5rem);
 }
 
 .hero-location {
@@ -428,9 +490,10 @@ main {
 }
 
 .hero-tagline {
-  max-width: 40ch;
-  margin-block-start: 1.25rem;
-  font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem);
+  max-width: 34ch;
+  margin-block-start: 1.5rem;
+  font-size: clamp(1.125rem, 1rem + 0.85vw, 1.625rem);
+  line-height: 1.45;
   color: var(--text-2);
   text-wrap: pretty;
 }

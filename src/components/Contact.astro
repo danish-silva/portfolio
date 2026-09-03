@@ -2,26 +2,40 @@
 import { profile } from '../data/profile';
 import SectionHeading from './SectionHeading.astro';
 import Icon from './icons/Icon.astro';
-import GitHubIcon from './icons/GitHubIcon.astro';
 import LinkedInIcon from './icons/LinkedInIcon.astro';
 ---
 
 <section id="contact" class="section" aria-labelledby="contact-heading">
-  <SectionHeading id="contact-heading">Contact</SectionHeading>
+  <SectionHeading id="contact-heading">Let's Connect</SectionHeading>
   <p class="contact-availability" data-reveal>{profile.availability}</p>
-  <ul class="contact-actions" data-reveal-group aria-label="Ways to get in touch">
-    <li>
-      <a class="button button-primary glass" href={`mailto:${profile.email}`}>
-        <Icon name="mail" />Email Me
+
+  <div class="contact-layout" data-reveal-group>
+    <!--
+      The box itself is not a link. Only the arrow is, so the address stays
+      ordinary selectable text for anyone copying it into a tracking system
+      rather than opening a mail client.
+    -->
+    <div class="contact-box">
+      <div class="contact-box-text">
+        <p class="contact-eyebrow">Start a Conversation</p>
+        <p class="contact-address">{profile.email}</p>
+      </div>
+      <a
+        class="contact-arrow glass"
+        href={`mailto:${profile.email}`}
+        aria-label={`Email ${profile.name} at ${profile.email}`}
+      >
+        <Icon name="arrow-up-right" size={22} />
       </a>
-    </li>
-    <li class="contact-email glass"><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
-    <li><a class="button glass" href={profile.linkedin} rel="me noopener"><LinkedInIcon />LinkedIn</a></li>
-    <li><a class="button glass" href={profile.github} rel="me noopener"><GitHubIcon />GitHub</a></li>
-    <li>
+    </div>
+
+    <div class="contact-side">
+      <a class="button glass" href={profile.linkedin} rel="me noopener">
+        <LinkedInIcon />LinkedIn
+      </a>
       <a class="button glass" href={profile.resume} download>
         <Icon name="download" />{profile.cta.tertiary.label}
       </a>
-    </li>
-  </ul>
+    </div>
+  </div>
 </section>

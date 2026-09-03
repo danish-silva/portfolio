@@ -8,7 +8,7 @@ export const profile = {
   tagline:
     'Final year Mechatronics Engineering student at UTS, taking hardware from schematic and PCB design through power, sensing and control to a tested working system.',
   location: 'Sydney, NSW',
-  email: 'danishsilva@gmail.com',
+  email: 'hello@danishsilva.com',
   github: 'https://github.com/danish-silva',
   linkedin: 'https://www.linkedin.com/in/danish-silva',
   // Served from /public. The PDF itself is tracked in ASSETS.md.

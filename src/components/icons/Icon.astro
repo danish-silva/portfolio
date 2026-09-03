@@ -1,0 +1,45 @@
+---
+// Stroke icons, drawn on Tabler's 24 by 24 grid at a single stroke width so
+// they read as one set. Brand marks (GitHubIcon, LinkedInIcon) are solid
+// fills instead, because a logo has to be the official path; keeping the two
+// categories visually distinct is deliberate.
+//
+// Decorative by default: the label beside an icon carries the meaning. Pass a
+// `label` only when the icon stands alone.
+interface Props {
+  name: 'mail' | 'download' | 'pin' | 'copyright';
+  size?: number;
+  label?: string;
+}
+
+const { name, size = 16, label } = Astro.props;
+
+const paths: Record<Props['name'], string[]> = {
+  mail: ['M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z', 'M3 7l9 6l9-6'],
+  download: ['M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2', 'M7 11l5 5l5-5', 'M12 4v12'],
+  pin: [
+    'M9 11a3 3 0 1 0 6 0a3 3 0 0 0-6 0',
+    'M17.657 16.657l-4.243 4.243a2 2 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z',
+  ],
+  copyright: ['M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0-18 0', 'M14.5 9a3.5 4 0 1 0 0 6'],
+};
+---
+
+<svg
+  class="icon"
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden={label ? undefined : 'true'}
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  focusable="false"
+>
+  {label && <title>{label}</title>}
+  {paths[name].map((d) => <path d={d}></path>)}
+</svg>

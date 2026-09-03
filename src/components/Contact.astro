@@ -1,27 +1,28 @@
 ---
 import { profile } from '../data/profile';
 import SectionHeading from './SectionHeading.astro';
+import Icon from './icons/Icon.astro';
+import GitHubIcon from './icons/GitHubIcon.astro';
+import LinkedInIcon from './icons/LinkedInIcon.astro';
 ---
 
 <section id="contact" class="section" aria-labelledby="contact-heading">
   <SectionHeading id="contact-heading">Contact</SectionHeading>
   <p class="contact-availability" data-reveal>{profile.availability}</p>
-  <ul class="contact-list" data-reveal-group>
+  <ul class="contact-actions" data-reveal-group aria-label="Ways to get in touch">
     <li>
-      <span>Email</span>
-      <a href={`mailto:${profile.email}`}>{profile.email}</a>
+      <a class="button button-primary" href={`mailto:${profile.email}`}>
+        <Icon name="mail" />Email Me
+      </a>
     </li>
     <li>
-      <span>LinkedIn</span>
-      <a href={profile.linkedin} rel="me noopener">{profile.linkedin.replace('https://', '')}</a>
+      <a class="button" href={profile.github} rel="me noopener"><GitHubIcon />GitHub</a>
     </li>
     <li>
-      <span>GitHub</span>
-      <a href={profile.github} rel="me noopener">{profile.github.replace('https://', '')}</a>
+      <a class="button" href={profile.linkedin} rel="me noopener"><LinkedInIcon />LinkedIn</a>
     </li>
     <li>
-      <span>Resume</span>
-      <a href={profile.resume} download>Download PDF</a>
+      <a class="button" href={profile.resume} download><Icon name="download" />Resume</a>
     </li>
   </ul>
 </section>

@@ -7,7 +7,7 @@
 // Decorative by default: the label beside an icon carries the meaning. Pass a
 // `label` only when the icon stands alone.
 interface Props {
-  name: 'mail' | 'download' | 'pin' | 'copyright' | 'education' | 'arrow-up-right' | 'arrow-left';
+  name: 'mail' | 'download' | 'pin' | 'copyright' | 'education' | 'arrow-up-right' | 'arrow-left' | 'expand' | 'close';
   size?: number;
   label?: string;
 }
@@ -26,6 +26,13 @@ const paths: Record<Props['name'], string[]> = {
   education: ['M22 9L12 5L2 9l10 4l10-4v6', 'M6 10.6V16a6 3 0 0 0 12 0v-5.4'],
   'arrow-up-right': ['M17 7L7 17', 'M8 7h9v9'],
   'arrow-left': ['M5 12h14', 'M5 12l6 6', 'M5 12l6-6'],
+  expand: [
+    'M4 8V6a2 2 0 0 1 2-2h2',
+    'M4 16v2a2 2 0 0 0 2 2h2',
+    'M16 4h2a2 2 0 0 1 2 2v2',
+    'M16 20h2a2 2 0 0 0 2-2v-2',
+  ],
+  close: ['M18 6L6 18', 'M6 6l12 12'],
 };
 ---
 

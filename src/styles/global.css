@@ -923,10 +923,20 @@ figcaption {
   gap: 0.75rem;
 }
 
-/* Mono, because the address is something to be read character by character
-   and copied, not skimmed. */
+/*
+  Mono, because the address is read character by character and copied, not
+  skimmed. Boxed on the button geometry so it lines up with the row above,
+  but with the softer border and no fill, so it does not pretend to be a
+  control. The link inside keeps its underline and accent colour.
+*/
 .contact-email {
-  margin-block-start: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.875rem;
+  margin-block-start: 1rem;
+  padding: 0.6rem 1.15rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
   font-family: var(--font-mono);
   font-size: 1rem;
 }

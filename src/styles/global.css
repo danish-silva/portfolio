@@ -569,10 +569,28 @@ main {
   display: flex;
   flex: 1;
   flex-wrap: wrap;
-  /* Each name takes an equal share of the row and centres inside it, so the
-     gaps either side of every link match. */
-  justify-content: space-evenly;
+  justify-content: space-between;
   gap: 0.25rem 1rem;
+}
+
+/*
+  On desktop the wordmark and the five links become one row of six, spread
+  edge to edge. Distributing only the links left the row flush on the left,
+  where the wordmark sits, but 95px short on the right after Contact, so the
+  header read as lopsided.
+
+  display: contents lifts the list items into the nav's own flex row.
+  It strips list semantics in some browsers, which the explicit role on the
+  ul puts back.
+*/
+@media (min-width: 48rem) {
+  .site-nav {
+    justify-content: space-between;
+  }
+
+  .site-nav ul {
+    display: contents;
+  }
 }
 
 .site-nav ul li {

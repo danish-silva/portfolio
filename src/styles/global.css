@@ -1202,7 +1202,13 @@ figcaption {
 }
 
 /* Summary left, links right. The links keep their intrinsic width so a long
-   summary never squeezes the button. */
+   summary never squeezes them; the summary gives up width instead, down to
+   20rem, which is what keeps a second link on the same row. */
+.project-intro .project-summary {
+  flex: 1 1 20rem;
+  min-width: 0;
+}
+
 .project-intro {
   display: flex;
   flex-wrap: wrap;

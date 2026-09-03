@@ -80,12 +80,15 @@ Written up. Files go in `src/content/projects/mems-step-tracker-pcb/`, beside `i
 
 ### Pitwall
 
+Written up. Files go in `src/content/projects/pitwall-rl/`, beside `index.md`; the video goes in `public/media/pitwall-rl/`.
+
 | Asset | Status | Priority | Notes |
 | --- | --- | --- | --- |
-| Cover: frame of the trained agent on the CarRacing track | regenerate | launch | Run the saved model, screenshot. |
-| Video or GIF: agent completing a lap | regenerate | strong | `gymnasium` render to frames, encode with ffmpeg. Keep under 10 MB. |
-| Plot: episode reward over training, ideally showing the curriculum stage boundaries | regenerate or confirm | strong | From TensorBoard logs or the SB3 monitor CSV, if they were kept. |
-| Diagram: curriculum stages and save-state injection | generate | nice | Inline SVG. |
+| Cover: the agent mid-lap on the track | regenerate | launch | Run a saved checkpoint and screenshot a frame. Pick one where the car is clearly on the racing line. |
+| Video: one completed lap | regenerate | strong | The evaluation harness already renders rollouts. 15 to 30 seconds, under 10 MB, no audio needed. This is the asset that proves the agent drives. |
+| Plot: racing line over the track geometry | regenerate | strong | Your own evaluation tooling produces this, and the writeup names it as the tool that exposed the spin-in-place failure, so it earns its place. |
+| Plot: tyre wear across a race with lap boundaries | regenerate | strong | Also produced by the evaluation harness. Shows the wear model driving the decision. |
+| Plot: reward curve from TensorBoard | regenerate | nice | Only worth including if it shows the shift after the reward redesign; a smooth curve on its own says little. |
 
 ### Separately Excited DC Motor Drive Simulation
 

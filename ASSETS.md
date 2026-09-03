@@ -93,6 +93,16 @@ Written up. Files go in `src/content/projects/pitwall-rl/`, beside `index.md`; t
 | Plot: tyre wear across a race with lap boundaries | regenerate | strong | Also produced by the evaluation harness. Shows the wear model driving the decision. |
 | Plot: reward curve from TensorBoard | regenerate | nice | Only worth including if it shows the shift after the reward redesign; a smooth curve on its own says little. |
 
+### FireRed RL Agent
+
+Written, held as a draft pending dates. Files go in `src/content/projects/firered-rl-agent/`, beside `index.md`.
+
+| Asset | Status | Priority | Notes |
+| --- | --- | --- | --- |
+| Cover: TensorBoard per-component reward breakdown | regenerate | launch | The one asset that carries this project, because it is the evidence the reward function works. Re-run a short training job or open an existing log. |
+| Plot: unique tiles and distinct maps over training steps | regenerate | strong | Exploration climbing is the specific claim the writeup makes. This is the picture of it. |
+| Video: a short rollout of the agent playing | regenerate | nice | A smoke-test run is enough. Do not include game audio, and keep it brief. |
+
 ### Separately Excited DC Motor Drive Simulation
 
 | Asset | Status | Priority | Notes |

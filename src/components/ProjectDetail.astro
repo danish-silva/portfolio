@@ -103,7 +103,7 @@ function isGitHub(url: string): boolean {
         <ul>
           {links.map((link) => (
             <li>
-              <a class="button" href={link.url} rel="noopener">
+              <a class="button glass" href={link.url} rel="noopener">
                 {isGitHub(link.url) && <GitHubIcon />}
                 {link.label}
               </a>

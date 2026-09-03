@@ -16,7 +16,7 @@ const { title, summary, startDate, endDate, ongoing, tags, cover } = project.dat
 const dates = formatRange(startDate, endDate, ongoing);
 ---
 
-<a class="project-card" href={`/projects/${project.id}`} data-project-link={project.id}>
+<a class="project-card glass" href={`/projects/${project.id}`} data-project-link={project.id}>
   <div class="project-card-media">
     {
       cover ? (

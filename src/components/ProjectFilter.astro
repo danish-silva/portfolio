@@ -11,10 +11,10 @@ const { tags } = Astro.props;
 ---
 
 <div class="project-filter" data-project-filter role="group" aria-label="Filter projects by tag" hidden>
-  <button type="button" class="button" data-filter="all" aria-pressed="true">All</button>
+  <button type="button" class="button glass" data-filter="all" aria-pressed="true">All</button>
   {
     tags.map((tag) => (
-      <button type="button" class="button" data-filter={tag} aria-pressed="false">
+      <button type="button" class="button glass" data-filter={tag} aria-pressed="false">
         {tagLabel(tag)}
       </button>
     ))

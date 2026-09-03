@@ -13,15 +13,15 @@ import LinkedInIcon from './icons/LinkedInIcon.astro';
   </ul>
   <ul class="hero-actions" aria-label="Primary actions">
     <li>
-      <a class="button button-primary" href={profile.cta.primary.href}>
+      <a class="button button-primary glass" href={profile.cta.primary.href}>
         {profile.cta.primary.label}
       </a>
     </li>
-    <li><a class="button" href={profile.cta.secondary.href}>{profile.cta.secondary.label}</a></li>
-    <li><a class="button" href={profile.linkedin} rel="me noopener"><LinkedInIcon />LinkedIn</a></li>
-    <li><a class="button" href={profile.github} rel="me noopener"><GitHubIcon />GitHub</a></li>
+    <li><a class="button glass" href={profile.cta.secondary.href}>{profile.cta.secondary.label}</a></li>
+    <li><a class="button glass" href={profile.linkedin} rel="me noopener"><LinkedInIcon />LinkedIn</a></li>
+    <li><a class="button glass" href={profile.github} rel="me noopener"><GitHubIcon />GitHub</a></li>
     <li>
-      <a class="button" href={profile.resume} download>
+      <a class="button glass" href={profile.resume} download>
         <Icon name="download" />{profile.cta.tertiary.label}
       </a>
     </li>

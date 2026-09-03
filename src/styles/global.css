@@ -31,7 +31,25 @@
   --button-bg-hover: #ffffff;
   --backdrop: rgb(6 4 12 / 0.7);
 
-  --radius: 6px;
+  /* Liquid glass. A tint over a blurred backdrop, a hairline edge, and an
+     inset highlight along the top edge which is what reads as refraction.
+     backdrop-filter samples whatever is actually painted behind, including
+     the WebGL gradient, so the glass tracks the background as it moves. */
+  --glass-bg: rgb(255 255 255 / 0.06);
+  --glass-bg-hover: rgb(255 255 255 / 0.11);
+  /* The rim is not a taste value. At 0.14 it reached only 1.5:1 against the
+     brightest part of the gradient, which leaves a control with no visible
+     boundary. 0.4 clears the 3:1 that WCAG asks of a control edge, measured
+     against the shader's peak pixel after the dim. A bright rim is also what
+     the reference effect actually looks like. */
+  --glass-border: rgb(255 255 255 / 0.4);
+  --glass-border-hover: rgb(255 255 255 / 0.62);
+  --glass-blur: blur(14px) saturate(150%);
+  --glass-edge:
+    inset 0 1px 0 rgb(255 255 255 / 0.16), inset 0 -1px 0 rgb(255 255 255 / 0.05);
+  --glass-lift: 0 10px 30px -18px rgb(0 0 0 / 0.75);
+
+  --radius: 8px;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --dur-fast: 160ms;
   --dur: 200ms;
@@ -339,11 +357,60 @@ main {
   content has arrived; the movement, which is the part that causes trouble,
   is dropped along with the stagger.
 */
+/* Reduced motion keeps the colour and edge changes, which say the control is
+   live, and drops every position and scale change. */
+@media (prefers-reduced-motion: reduce) {
+  .button:hover,
+  .button:active,
+  .project-card:hover,
+  .project-card:active,
+  .skill-card:hover {
+    transform: none;
+  }
+
+  .project-card:hover .project-card-media img,
+  .site-nav ul a::after {
+    transition: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   [data-reveal='on'] [data-reveal] {
     transform: none;
     transition: opacity 300ms ease;
     transition-delay: 0ms;
+  }
+}
+
+/* ---------- Liquid glass ---------- */
+
+/*
+  Applied to every raised surface: buttons, cards, the popup, the header and
+  the boxed address. Two fallbacks, both mandatory. Without backdrop-filter
+  the tint alone would sit on the gradient as a barely visible film, so those
+  browsers get a solid fill instead. Visitors who ask for reduced
+  transparency get the same solid fill, since that setting exists precisely
+  because translucency over busy backgrounds is hard to read.
+*/
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-edge);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background: var(--surface-solid);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    background: var(--surface-solid);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 }
 
@@ -355,9 +422,7 @@ main {
   justify-content: center;
   min-height: 2.875rem;
   padding: 0.6rem 1.15rem;
-  border: 1px solid var(--border-ui);
   border-radius: var(--radius);
-  background: var(--surface);
   color: var(--text);
   font: inherit;
   font-size: 1rem;
@@ -370,30 +435,48 @@ main {
     transform var(--dur-fast) var(--ease-out),
     background-color var(--dur-fast) ease,
     border-color var(--dur-fast) ease,
+    box-shadow var(--dur-fast) ease,
     color var(--dur-fast) ease;
 }
 
-.button:hover {
-  color: var(--text);
-  border-color: var(--text);
+/* Hover is gated: a touch device fires it on tap, which leaves the control
+   stuck in its hover state after the finger lifts. */
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    color: var(--text);
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-hover);
+    box-shadow: var(--glass-edge), var(--glass-lift);
+    transform: translateY(-1px);
+  }
 }
 
+/* Press beats hover, and it beats it instantly. */
 .button:active {
   transform: scale(0.97);
+  transition-duration: 100ms;
 }
 
+/* The solid buttons opt out of the glass: a filled control has nothing to
+   refract, and the fill is what marks it as the primary action. */
 .button-primary,
 .button[aria-pressed='true'] {
   background: var(--button-bg);
   color: var(--button-text);
   border-color: var(--button-bg);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: none;
 }
 
-.button-primary:hover,
-.button[aria-pressed='true']:hover {
-  background: var(--button-bg-hover);
-  border-color: var(--button-bg-hover);
-  color: var(--button-text);
+@media (hover: hover) and (pointer: fine) {
+  .button-primary:hover,
+  .button[aria-pressed='true']:hover {
+    background: var(--button-bg-hover);
+    border-color: var(--button-bg-hover);
+    color: var(--button-text);
+    box-shadow: var(--glass-lift);
+  }
 }
 
 .button .icon {
@@ -411,19 +494,25 @@ main {
 /* ---------- Header ---------- */
 
 .site-header {
-  background: rgb(14 11 22 / 0.72);
-  border-bottom: 1px solid var(--border);
+  /* Heavier tint than the other glass: the nav sits over whatever section
+     happens to be scrolling under it, so it cannot rely on the backdrop. */
+  background: rgb(14 11 22 / 0.6);
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: inset 0 -1px 0 rgb(255 255 255 / 0.04);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
 }
 
-@supports (backdrop-filter: blur(1px)) {
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .site-header {
-    backdrop-filter: blur(12px);
+    background: var(--surface-solid);
   }
 }
 
 @media (prefers-reduced-transparency: reduce) {
   .site-header {
     background: var(--surface-solid);
+    -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
 }
@@ -464,13 +553,42 @@ main {
 }
 
 .site-nav ul a {
+  position: relative;
+  display: inline-block;
   color: var(--text-2);
   text-decoration: none;
   font-size: 0.9375rem;
+  transition: color var(--dur-fast) ease;
 }
 
-.site-nav ul a:hover {
-  color: var(--accent);
+/* The rule grows out rather than fading in, so the motion draws the shape. */
+.site-nav ul a::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: -0.15em;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transition: transform var(--dur) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .site-nav ul a:hover {
+    color: var(--accent);
+  }
+
+  .site-nav ul a:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+.site-nav ul a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.brand {
+  transition: color var(--dur-fast) ease;
 }
 
 @media (max-width: 47.99rem) {
@@ -545,9 +663,7 @@ main {
 
 .education-card {
   padding: 1.25rem;
-  border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: var(--surface);
   font-size: 0.9375rem;
 }
 
@@ -650,6 +766,9 @@ main {
   font-size: 0.8125rem;
   color: var(--text-2);
   line-height: 1.4;
+  transition:
+    background-color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
 }
 
 /* ---------- Projects ---------- */
@@ -671,24 +790,46 @@ main {
   display: flex;
   flex-direction: column;
   height: 100%;
-  border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: var(--surface);
   color: inherit;
   text-decoration: none;
   overflow: hidden;
-  transition: border-color var(--dur-fast) ease;
+  transition:
+    transform var(--dur) var(--ease-out),
+    background-color var(--dur) ease,
+    border-color var(--dur) ease,
+    box-shadow var(--dur) ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .project-card:hover {
-    border-color: var(--border-strong);
     color: inherit;
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-hover);
+    box-shadow: var(--glass-edge), var(--glass-lift);
+    transform: translateY(-4px);
   }
 
   .project-card:hover .project-card-title {
     color: var(--accent);
   }
+
+  .project-card:hover .project-card-media img {
+    transform: scale(1.03);
+  }
+}
+
+.project-card:active {
+  transform: translateY(-1px);
+  transition-duration: 100ms;
+}
+
+.project-card-media {
+  overflow: hidden;
+}
+
+.project-card-media img {
+  transition: transform 400ms var(--ease-out);
 }
 
 .project-card-media {
@@ -737,11 +878,15 @@ main {
   max-height: min(90vh, 100% - 2rem);
   margin: auto;
   padding: 0;
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius);
-  background: var(--surface-solid);
+  /* Far heavier tint than the rest of the glass. This one holds several
+     hundred words of body copy, so readability outranks the effect. */
+  background: rgb(20 14 32 / 0.86);
   color: var(--text);
-  box-shadow: 0 24px 64px -24px rgb(0 0 0 / 0.6);
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
+  backdrop-filter: blur(28px) saturate(140%);
+  box-shadow: var(--glass-edge), 0 24px 64px -24px rgb(0 0 0 / 0.7);
   opacity: 0;
   transform: scale(0.96);
   transition:
@@ -765,6 +910,8 @@ main {
 
 .project-dialog::backdrop {
   background: transparent;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
   transition:
     background-color var(--dur) ease,
     overlay var(--dur) allow-discrete,
@@ -904,15 +1051,20 @@ figcaption {
   flex-direction: column;
   gap: 0.9rem;
   padding: 1.35rem 1.5rem 1.5rem;
-  border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: var(--surface);
-  transition: border-color var(--dur-fast) ease;
+  transition:
+    transform var(--dur) var(--ease-out),
+    background-color var(--dur) ease,
+    border-color var(--dur) ease,
+    box-shadow var(--dur) ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .skill-card:hover {
-    border-color: var(--border-strong);
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-hover);
+    box-shadow: var(--glass-edge), var(--glass-lift);
+    transform: translateY(-3px);
   }
 }
 
@@ -958,11 +1110,20 @@ figcaption {
   align-items: center;
   min-height: 2.875rem;
   padding: 0.6rem 1.15rem;
-  border: 1px solid var(--border);
   border-radius: var(--radius);
   font-family: var(--font-mono);
   font-size: 1rem;
   line-height: 1.2;
+  transition:
+    background-color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact-email:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-border-hover);
+  }
 }
 
 /* ---------- Footer ---------- */

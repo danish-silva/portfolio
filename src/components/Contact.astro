@@ -11,15 +11,15 @@ import LinkedInIcon from './icons/LinkedInIcon.astro';
   <p class="contact-availability" data-reveal>{profile.availability}</p>
   <ul class="contact-actions" data-reveal-group aria-label="Ways to get in touch">
     <li>
-      <a class="button button-primary" href={`mailto:${profile.email}`}>
+      <a class="button button-primary glass" href={`mailto:${profile.email}`}>
         <Icon name="mail" />Email Me
       </a>
     </li>
-    <li class="contact-email"><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
-    <li><a class="button" href={profile.linkedin} rel="me noopener"><LinkedInIcon />LinkedIn</a></li>
-    <li><a class="button" href={profile.github} rel="me noopener"><GitHubIcon />GitHub</a></li>
+    <li class="contact-email glass"><a href={`mailto:${profile.email}`}>{profile.email}</a></li>
+    <li><a class="button glass" href={profile.linkedin} rel="me noopener"><LinkedInIcon />LinkedIn</a></li>
+    <li><a class="button glass" href={profile.github} rel="me noopener"><GitHubIcon />GitHub</a></li>
     <li>
-      <a class="button" href={profile.resume} download>
+      <a class="button glass" href={profile.resume} download>
         <Icon name="download" />{profile.cta.tertiary.label}
       </a>
     </li>

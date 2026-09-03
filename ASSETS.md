@@ -34,7 +34,7 @@ Where files go:
 | --- | --- | --- | --- | --- |
 | Resume PDF | `public/Danish-Silva-Resume.pdf` | done | launch | In place, with the typo, date format and em dash corrected. |
 | Favicon | `public/favicon.svg` | generate | launch | Initials mark unless you want something else. |
-| Open Graph image, 1200 by 630 | `public/og-default.png` | generate | launch | Name, tagline, location on a plain background. Shows when the link is shared on LinkedIn. |
+| Open Graph image, 1200 by 630 | `public/og-default.png` | generate | launch | Name, tagline, location on a plain background. Shows when the link is shared on LinkedIn. Absolute URLs resolve against `https://danishsilva.com`, now set in the Astro config. |
 | Hero portrait | `src/assets/portrait.jpg` | photograph | nice | Optional. The hero works without one. If included: plain background, shoulders up, square crop. |
 | Background gradient | n/a | done | launch | No asset needed. The background is rendered live by @shadergradient/react; its settings live in `src/data/background.ts`. |
 

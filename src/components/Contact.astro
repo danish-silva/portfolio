@@ -25,4 +25,7 @@ import LinkedInIcon from './icons/LinkedInIcon.astro';
       <a class="button" href={profile.resume} download><Icon name="download" />Resume</a>
     </li>
   </ul>
+  <p class="contact-email" data-reveal>
+    <a href={`mailto:${profile.email}`}>{profile.email}</a>
+  </p>
 </section>

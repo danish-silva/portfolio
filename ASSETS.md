@@ -50,8 +50,8 @@ No images planned. The Optik Consultancy entry is text only, and anything showin
 
 | Asset | Status | Priority | Notes |
 | --- | --- | --- | --- |
-| Cover: UR3e with the RealSense D435 mounted on the tool | lab | launch | One clean photo of the eye-in-hand setup. Landscape, 3:2 or 16:9. Needs a robot booking. |
-| Demo video: arm tracking a moving checkerboard | lab or confirm | strong | The single most convincing asset for this project. 15 to 30 seconds, phone footage is fine. If you recorded one during the unit, this is `exists`. |
+| Cover: UR3e with the RealSense D435 mounted on the tool | exists | launch | A still pulled from your footage is fine. Drop it beside `src/content/projects/ur3e-realsense-visual-servoing/index.md` as `cover.jpg` and uncomment the `cover` block. |
+| Demo video: arm tracking a moving checkerboard | exists | strong | You have footage and are uploading it. Put it at `public/media/ur3e-realsense-visual-servoing/demo.mp4`, under about 10 MB, and uncomment the `video` block. The most convincing asset on the site. |
 | Screenshot: OpenCV checkerboard detection overlay with depth readout | confirm | strong | Regenerable from a saved rosbag or recorded frames if you have them, otherwise `lab`. |
 | Diagram: IBVS pipeline, camera to detection to image error to interaction matrix to Jacobian pseudoinverse to joint velocities | generate | strong | Inline SVG, no access needed. |
 | Screenshot: ROS node graph or rosbridge terminal at 15 to 20 Hz | confirm | nice | Only if a screenshot already exists. |

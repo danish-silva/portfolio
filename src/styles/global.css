@@ -1311,8 +1311,11 @@ figcaption {
 }
 
 .site-footer-inner {
-  display: grid;
-  gap: 0.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
   padding-block: 2rem 2.5rem;
   font-size: 0.9375rem;
   color: var(--muted);

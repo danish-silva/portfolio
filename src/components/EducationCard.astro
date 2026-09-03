@@ -1,11 +1,12 @@
 ---
 import { education } from '../data/education';
+import Icon from './icons/Icon.astro';
 
 const dates = `${education.start} to ${education.end}${education.expected ? ' (expected)' : ''}`;
 ---
 
 <aside class="education-card glass" aria-labelledby="education-heading">
-  <h3 id="education-heading">Education</h3>
+  <h3 id="education-heading"><Icon name="education" />Education</h3>
   <p class="education-degree">{education.degree}, {education.major}</p>
   <p class="education-school">{education.university}</p>
   <dl class="education-facts">

@@ -567,9 +567,16 @@ main {
 
 .site-nav ul {
   display: flex;
+  flex: 1;
   flex-wrap: wrap;
-  gap: 0.25rem 1.25rem;
-  margin-inline-end: auto;
+  /* Each name takes an equal share of the row and centres inside it, so the
+     gaps either side of every link match. */
+  justify-content: space-evenly;
+  gap: 0.25rem 1rem;
+}
+
+.site-nav ul li {
+  text-align: center;
 }
 
 .site-nav ul a {
@@ -616,6 +623,18 @@ main {
     flex-basis: 100%;
     order: 3;
   }
+}
+
+/* The education mark sits on the heading baseline rather than above it. */
+.education-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.education-card h3 .icon {
+  flex: none;
+  color: var(--border-ui);
 }
 
 /* ---------- Hero ---------- */

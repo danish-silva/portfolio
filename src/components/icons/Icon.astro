@@ -7,7 +7,7 @@
 // Decorative by default: the label beside an icon carries the meaning. Pass a
 // `label` only when the icon stands alone.
 interface Props {
-  name: 'mail' | 'download' | 'pin' | 'copyright';
+  name: 'mail' | 'download' | 'pin' | 'copyright' | 'education';
   size?: number;
   label?: string;
 }
@@ -22,6 +22,8 @@ const paths: Record<Props['name'], string[]> = {
     'M17.657 16.657l-4.243 4.243a2 2 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z',
   ],
   copyright: ['M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0-18 0', 'M14.5 9a3.5 4 0 1 0 0 6'],
+  // Mortarboard and tassel.
+  education: ['M22 9L12 5L2 9l10 4l10-4v6', 'M6 10.6V16a6 3 0 0 0 12 0v-5.4'],
 };
 ---
 

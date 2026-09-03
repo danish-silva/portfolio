@@ -207,11 +207,31 @@ h3 {
   letter-spacing: -0.01em;
 }
 
-/* The name is the largest thing on the site. */
+/*
+  The name is set to span the column exactly, so it is sized in container
+  units rather than viewport units: the column is capped at 64rem, so a vw
+  based size would keep growing past it on a wide screen.
+
+  14.8 is measured, not chosen. At letter-spacing -0.02em the string is 658px
+  wide at 100px in Geist, so 15.21cqi would fill the column precisely. Every
+  fallback face in the stack is wider, the tightest needing 15.0, so 14.8
+  fills about 97 percent and cannot overflow while the webfont is still
+  loading.
+*/
 .hero h1 {
-  font-size: clamp(2.75rem, 1.6rem + 5.6vw, 5.5rem);
-  line-height: 0.98;
-  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  /* For browsers without container queries. Tracks the viewport up to the
+     point the column stops growing. */
+  font-size: clamp(2rem, 13vw, 9.4rem);
+}
+
+@supports (font-size: 1cqi) {
+  .hero h1 {
+    font-size: 14.8cqi;
+  }
 }
 
 /* A project title is bold but must not compete with the name, and it has to
@@ -601,14 +621,21 @@ main {
 /* ---------- Hero ---------- */
 
 .hero {
+  container-type: inline-size;
   padding-block: clamp(4rem, 11vw, 8rem) clamp(3rem, 7vw, 5rem);
+  text-align: center;
+  /* Guard only: the name cannot overflow at 14.8cqi, but clip means a wide
+     fallback face can never produce a horizontal scrollbar. Clip rather than
+     hidden, so no scroll container is created. */
+  overflow-x: clip;
 }
 
 .hero-tagline {
-  max-width: 34ch;
+  max-width: 46ch;
   margin-block-start: 1.5rem;
-  font-size: clamp(1.125rem, 1rem + 0.85vw, 1.625rem);
-  line-height: 1.45;
+  margin-inline: auto;
+  font-size: clamp(1.0625rem, 1rem + 0.5vw, 1.375rem);
+  line-height: 1.5;
   color: var(--text-2);
   text-wrap: pretty;
 }
@@ -616,6 +643,7 @@ main {
 .hero-keywords {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.25rem 0;
   margin-block-start: 1rem;
   font-family: var(--font-mono);
@@ -644,6 +672,7 @@ main {
 }
 
 .hero-actions {
+  justify-content: center;
   margin-block-start: 2.5rem;
 }
 

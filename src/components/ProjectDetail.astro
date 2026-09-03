@@ -36,7 +36,23 @@ function isGitHub(url: string): boolean {
   <header class="project-detail-header">
     <h1 id={headingId}>{title}</h1>
     {dates && <p class="project-dates">{dates}</p>}
-    {summary && <p class="project-summary">{summary}</p>}
+    <div class="project-intro">
+      {summary && <p class="project-summary">{summary}</p>}
+      {
+        links.length > 0 && (
+          <ul class="project-links" aria-label="Project links">
+            {links.map((link) => (
+              <li>
+                <a class="button glass" href={link.url} rel="noopener">
+                  {isGitHub(link.url) && <GitHubIcon />}
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
     <TagList tags={tags} />
   </header>
 
@@ -96,21 +112,4 @@ function isGitHub(url: string): boolean {
     )
   }
 
-  {
-    links.length > 0 && (
-      <section class="project-links" aria-labelledby={`${headingId}-links`}>
-        <h2 id={`${headingId}-links`}>Links</h2>
-        <ul>
-          {links.map((link) => (
-            <li>
-              <a class="button glass" href={link.url} rel="noopener">
-                {isGitHub(link.url) && <GitHubIcon />}
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-    )
-  }
 </article>

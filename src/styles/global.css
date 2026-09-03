@@ -271,7 +271,7 @@ ol {
 .project-gallery,
 .skills-grid,
 .skill-card ul,
-.project-links ul {
+.project-links {
   list-style: none;
 }
 
@@ -1190,23 +1190,38 @@ figcaption {
   color: var(--muted);
 }
 
-.project-tools,
-.project-links {
+.project-tools {
   margin-block-start: 2rem;
   padding-block-start: 1.5rem;
   border-top: 1px solid var(--border);
 }
 
-.project-tools h2,
-.project-links h2 {
+.project-tools h2 {
   font-size: 1rem;
   margin-block-end: 0.75rem;
 }
 
-.project-links ul {
+/* Summary left, links right. The links keep their intrinsic width so a long
+   summary never squeezes the button. */
+.project-intro {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+}
+
+.project-links {
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
   gap: 0.625rem;
+}
+
+@media (max-width: 34rem) {
+  .project-intro {
+    flex-direction: column;
+  }
 }
 
 .breadcrumb {

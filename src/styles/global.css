@@ -146,39 +146,36 @@ a:hover {
 }
 
 /*
-  Every heading is set in capitals. Capitals need positive tracking, and the
-  amount is size specific: large display capitals need almost none, small ones
-  need the most, otherwise they read as a solid block. Set with
-  text-transform rather than uppercase source text so screen readers and the
-  page title still get the real words.
+  Headings are title case. `capitalize` raises the first letter of each word
+  and leaves the rest of the word untouched, which is what keeps model names
+  like UR3e spelt correctly. Doing it here rather than in the source text
+  means every future heading conforms without anyone remembering to.
 */
 h1,
 h2,
 h3 {
   margin: 0;
   font-weight: 650;
-  line-height: 1.2;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  text-transform: capitalize;
   text-wrap: balance;
 }
 
 h1 {
-  font-size: clamp(1.875rem, 1.2rem + 2.7vw, 2.75rem);
+  font-size: clamp(2rem, 1.3rem + 2.8vw, 3rem);
   font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: 0.005em;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
 }
 
 h2 {
-  font-size: clamp(1.375rem, 1.15rem + 0.9vw, 1.625rem);
-  letter-spacing: 0.02em;
+  font-size: clamp(1.5rem, 1.25rem + 1vw, 1.875rem);
 }
 
 h3 {
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  letter-spacing: 0.035em;
 }
 
 p {
@@ -234,9 +231,8 @@ main {
 }
 
 .prose h2 {
-  font-size: 1rem;
+  font-size: 1.125rem;
   color: var(--text);
-  letter-spacing: 0.05em;
   margin-block: 2rem 0.5rem;
 }
 
@@ -338,7 +334,6 @@ main {
 .button .icon {
   flex: none;
   margin-inline-end: 0.5rem;
-  /* The mark reads slightly high against uppercase text. */
   transform: translateY(0.5px);
 }
 
@@ -493,10 +488,9 @@ main {
 }
 
 .education-card h3 {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   color: var(--muted);
-  letter-spacing: 0.09em;
   margin-block-end: 0.75rem;
 }
 
@@ -814,8 +808,7 @@ figcaption {
 
 .project-tools h2,
 .project-links h2 {
-  font-size: 0.9375rem;
-  letter-spacing: 0.06em;
+  font-size: 1rem;
   margin-block-end: 0.75rem;
 }
 
@@ -839,9 +832,8 @@ figcaption {
 }
 
 .skill-group h3 {
-  font-size: 0.875rem;
-  letter-spacing: 0.06em;
-  margin-block-end: 0.4rem;
+  font-size: 0.9375rem;
+  margin-block-end: 0.35rem;
 }
 
 .skill-group ul {

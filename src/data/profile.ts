@@ -16,8 +16,10 @@ export const profile = {
   // Short line of role keywords for recruiters scanning quickly.
   // TODO: confirm or edit this list.
   keywords: ['Robotics', 'Embedded Systems', 'Electronics', 'Computer Vision', 'Mechanical Design'],
+  // The disciplines are already listed twice above, in the hero keyword row
+  // and in the About prose, so this line does not repeat them a third time.
   availability:
-    'Open to 2027 graduate roles in robotics, embedded systems, electronics, computer vision and mechanical design.',
+    "I'm graduating in 2027 and looking for a graduate role where I can keep working close to hardware. If you're hiring, or just want to talk about something you're building, I'd love to hear from you.",
   // TODO: confirm CTA wording.
   cta: {
     primary: { label: 'See My Projects', href: '#projects' },

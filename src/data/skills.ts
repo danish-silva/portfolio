@@ -15,7 +15,7 @@ export const skillGroups: SkillGroup[] = [
   { name: 'Robotics Frameworks', items: ['ROS 2', 'OpenCV', 'MoveIt 2'] },
   {
     name: 'Mechanical Design',
-    items: ['SolidWorks', 'Autodesk Fusion', 'AS 1100 technical drawings'],
+    items: ['SolidWorks', 'Autodesk Fusion', 'AS 1100 Technical Drawings'],
   },
   { name: 'Simulation', items: ['Gazebo', 'LTspice', 'Simulink'] },
   { name: 'Data and Optimisation', items: ['MATLAB', 'NumPy'] },
@@ -26,10 +26,10 @@ export const skillGroups: SkillGroup[] = [
       'Leadership',
       'Teamwork',
       'Adaptability',
-      'Analytical thinking',
-      'Process optimisation',
-      'Stakeholder management',
-      'Technical documentation',
+      'Analytical Thinking',
+      'Process Optimisation',
+      'Stakeholder Management',
+      'Technical Documentation',
     ],
   },
 ];

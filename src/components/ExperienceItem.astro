@@ -13,12 +13,18 @@ const { title, company, client, employmentType, location, startDate, endDate, cu
 const { Content } = await render(role);
 
 const organisation = client ? `${company}, Client: ${client}` : company;
-const meta = [employmentType, location, formatRange(startDate, endDate, current)].filter(Boolean);
+// Dates sit on the title row rather than in this line, so the two facts a
+// recruiter scans for, the role and when it ran, share one line.
+const dates = formatRange(startDate, endDate, current);
+const meta = [employmentType, location].filter(Boolean);
 ---
 
 <article class="role">
   <header class="role-header">
-    <h3 class="role-title">{title}</h3>
+    <div class="role-headline">
+      <h3 class="role-title">{title}</h3>
+      {dates && <p class="role-dates">{dates}</p>}
+    </div>
     <p class="role-org">{organisation}</p>
     <p class="role-meta">
       {meta.map((item) => <span>{item}</span>)}

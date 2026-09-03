@@ -19,7 +19,7 @@ const { project } = Astro.props;
 
 <BaseLayout title={project.data.title} description={project.data.summary}>
   <nav class="breadcrumb" aria-label="Breadcrumb">
-    <a href="/#projects">All projects</a>
+    <a class="button button-primary breadcrumb-back" href="/#projects">Return to Projects</a>
   </nav>
   <ProjectDetail project={project} headingId="project-title" />
 </BaseLayout>

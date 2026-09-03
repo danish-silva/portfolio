@@ -1138,8 +1138,14 @@ figcaption {
 }
 
 .breadcrumb {
-  margin-block: 1.5rem 2rem;
-  font-size: 0.9375rem;
+  margin-block: 1.5rem 2.5rem;
+}
+
+/* Pill shaped, on the same solid fill the primary buttons use. That fill is
+   an off white and an off black rather than pure values, which is what keeps
+   it from glaring against the dark page. */
+.breadcrumb-back {
+  border-radius: 999px;
 }
 
 /* ---------- Skills ---------- */

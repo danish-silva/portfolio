@@ -1,10 +1,8 @@
 ---
 title: FireRed RL Agent
 summary: "A reinforcement learning agent that plays Pokémon FireRed from pixels, with the reward read out of the game's memory rather than off the screen."
-# TODO: dates. Roughly which months did you work on this? The grid sorts on
-# them and the entry cannot publish without them.
-# startDate: 2026-0?-01
-# endDate: 2026-0?-01
+startDate: 2026-04-01
+endDate: 2026-05-01
 tags:
   - machine-learning
 tools:
@@ -30,8 +28,8 @@ links:
 # video:
 #   src: /media/firered-rl-agent/rollout.mp4
 #   caption: The agent moving through the opening area under its own policy.
-order: 15
-draft: true
+order: 45
+draft: false
 ---
 
 ## The Problem

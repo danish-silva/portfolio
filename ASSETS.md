@@ -95,7 +95,7 @@ Written up. Files go in `src/content/projects/pitwall-rl/`, beside `index.md`; t
 
 ### FireRed RL Agent
 
-Written, held as a draft pending dates. Files go in `src/content/projects/firered-rl-agent/`, beside `index.md`.
+Written up. Files go in `src/content/projects/firered-rl-agent/`, beside `index.md`.
 
 | Asset | Status | Priority | Notes |
 | --- | --- | --- | --- |

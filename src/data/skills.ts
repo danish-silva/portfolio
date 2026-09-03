@@ -17,9 +17,7 @@ export const skillGroups: SkillGroup[] = [
     name: 'Mechanical Design',
     items: ['SolidWorks', 'Autodesk Fusion', 'AS 1100 technical drawings'],
   },
-  // TODO: confirm whether LTspice (used in the MEMS step tracker project)
-  // and MATLAB Simulink belong here alongside Gazebo.
-  { name: 'Simulation', items: ['Gazebo'] },
+  { name: 'Simulation', items: ['Gazebo', 'LTspice', 'Simulink'] },
   { name: 'Data and Optimisation', items: ['MATLAB', 'NumPy'] },
   { name: 'Version Control', items: ['GitHub', 'Altium 365'] },
   {

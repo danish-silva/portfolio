@@ -218,7 +218,8 @@ ol {
 .contact-actions,
 .project-grid,
 .project-gallery,
-.skill-group ul,
+.skills-grid,
+.skill-card ul,
 .project-links ul {
   list-style: none;
 }
@@ -888,27 +889,51 @@ figcaption {
 
 .skills-grid {
   display: grid;
-  gap: 1.5rem 2.5rem;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
 }
 
-.skill-group h3 {
-  font-size: 0.9375rem;
-  margin-block-end: 0.35rem;
+/*
+  One card per group. The heading sits above a rule so the group name reads
+  as a label on the card rather than as another line of the list.
+*/
+.skill-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.35rem 1.5rem 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: border-color var(--dur-fast) ease;
 }
 
-.skill-group ul {
+@media (hover: hover) and (pointer: fine) {
+  .skill-card:hover {
+    border-color: var(--border-strong);
+  }
+}
+
+.skill-card h3 {
+  padding-block-end: 0.9rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+}
+
+.skill-card ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.skill-card li {
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  background: var(--surface-2);
   color: var(--text-2);
   font-size: 0.9375rem;
-  line-height: 1.5;
-}
-
-.skill-group li {
-  display: inline;
-}
-
-.skill-group li:not(:last-child)::after {
-  content: ', ';
+  line-height: 1.45;
 }
 
 /* ---------- Contact ---------- */

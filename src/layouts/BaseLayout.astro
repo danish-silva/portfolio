@@ -1,4 +1,11 @@
 ---
+// Variable fonts, self hosted. Each family declares every subset with a
+// unicode-range, so a latin page downloads only the latin file and ignores
+// the rest. Imported before global.css so the faces exist when the tokens
+// that reference them are read.
+import '@fontsource-variable/geist/wght.css';
+import '@fontsource-variable/geist-mono/wght.css';
+import geistLatin from '@fontsource-variable/geist/files/geist-latin-wght-normal.woff2?url';
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
@@ -23,6 +30,13 @@ const fullTitle = title === profile.name ? title : `${title} | ${profile.name}`;
     <meta name="color-scheme" content="dark" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <!--
+      The hero heading is the largest contentful paint on this page, so the
+      face it is set in is fetched at the same time as the stylesheet rather
+      than after it. Only the sans is preloaded: the mono carries dates and
+      labels, none of which are the LCP element.
+    -->
+    <link rel="preload" href={geistLatin} as="font" type="font/woff2" crossorigin />
     <!-- Favicon, canonical and Open Graph tags are added in the polish step. -->
     <script is:inline>
       // Arm the scroll reveal before the first paint. Doing this here rather

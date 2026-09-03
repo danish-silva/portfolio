@@ -39,8 +39,10 @@
      ceiling that applies to UI feedback. */
   --dur-reveal: 600ms;
 
-  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --font-mono: ui-monospace, 'Cascadia Mono', 'SF Mono', Menlo, Consolas, monospace;
+  /* Fallbacks are the platform faces, so text is readable from the first
+     paint and swaps to Geist when it arrives. */
+  --font-sans: 'Geist Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, 'Cascadia Mono', 'SF Mono', Menlo, monospace;
 
   --column: 64rem;
   --gutter: clamp(1rem, 4vw, 2rem);

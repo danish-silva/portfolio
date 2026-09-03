@@ -645,9 +645,13 @@ main {
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.25rem 0;
-  margin-block-start: 1rem;
+  margin-block-start: 1.25rem;
   font-family: var(--font-mono);
-  font-size: 0.8125rem;
+  /* Capitals at this size need positive tracking or they set as a block.
+     Applied with text-transform, so the data stays plain in profile.ts. */
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
   color: var(--muted);
 }
 

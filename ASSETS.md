@@ -32,7 +32,7 @@ Where files go:
 
 | Asset | Where | Status | Priority | Notes |
 | --- | --- | --- | --- | --- |
-| Resume PDF | `public/Danish-Silva-Resume.pdf` | exists | launch | `Documents/Jobs/Resume_DanishSilva.pdf`. Fix "Adapability", "June 2024" and the em dash before copying it in. |
+| Resume PDF | `public/Danish-Silva-Resume.pdf` | done | launch | In place, with the typo, date format and em dash corrected. |
 | Favicon | `public/favicon.svg` | generate | launch | Initials mark unless you want something else. |
 | Open Graph image, 1200 by 630 | `public/og-default.png` | generate | launch | Name, tagline, location on a plain background. Shows when the link is shared on LinkedIn. |
 | Hero portrait | `src/assets/portrait.jpg` | photograph | nice | Optional. The hero works without one. If included: plain background, shoulders up, square crop. |

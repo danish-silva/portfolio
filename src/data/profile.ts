@@ -15,7 +15,7 @@ export const profile = {
   resume: '/Danish-Silva-Resume.pdf',
   // Short line of role keywords for recruiters scanning quickly.
   // TODO: confirm or edit this list.
-  keywords: ['Robotics', 'Embedded systems', 'Electronics', 'Computer vision', 'Mechanical design'],
+  keywords: ['Robotics', 'Embedded Systems', 'Electronics', 'Computer Vision', 'Mechanical Design'],
   availability:
     'Open to 2027 graduate roles in robotics, embedded systems, electronics, computer vision and mechanical design.',
   // TODO: confirm CTA wording.

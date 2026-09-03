@@ -12,7 +12,7 @@ const { title, company, client, employmentType, location, startDate, endDate, cu
   role.data;
 const { Content } = await render(role);
 
-const organisation = client ? `${company}, client: ${client}` : company;
+const organisation = client ? `${company}, Client: ${client}` : company;
 const meta = [employmentType, location, formatRange(startDate, endDate, current)].filter(Boolean);
 ---
 

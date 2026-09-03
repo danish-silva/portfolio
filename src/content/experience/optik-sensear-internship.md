@@ -5,7 +5,7 @@ client: Sensear
 # TODO: confirm employment type. Allowed values: Internship, Full-time,
 # Part-time, Casual, Contract, Freelance.
 # employmentType: Internship
-location: Sydney, NSW
+location: Botany, NSW
 # Dates are shown at month granularity; the day is a placeholder.
 startDate: 2026-05-01
 endDate: 2026-08-01

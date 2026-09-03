@@ -36,8 +36,8 @@ Where files go:
 | Favicon | `public/favicon.svg` | generate | launch | Initials mark unless you want something else. |
 | Open Graph image, 1200 by 630 | `public/og-default.png` | generate | launch | Name, tagline, location on a plain background. Shows when the link is shared on LinkedIn. |
 | Hero portrait | `src/assets/portrait.jpg` | photograph | nice | Optional. The hero works without one. If included: plain background, shoulders up, square crop. |
-| Background gradient, still | `public/bg/gradient.png` | regenerate | launch | Export from https://www.shadergradient.co/ with dark purple to violet to pink, brightness low. 1920 by 1080 PNG or JPEG under 400 KB (JPEG at 80 is fine, gradients compress well). Then set `image` in `src/data/background.ts`. A CSS gradient stands in until then. |
-| Background gradient, loop | `public/bg/gradient.mp4` | regenerate | nice | Same scene exported as video: 1920 by 1080, H.264, 10 to 15 s seamless loop, no audio, target under 4 MB. Set `video` in `src/data/background.ts`. Hidden automatically for visitors who prefer reduced motion. Skip if the still is enough. |
+| Background gradient, loop | `public/bg/gradient.webm` | exists | launch | Done. Figma export, 1026 by 738, 9.5 s loop, 3.4 MB WebM. Wired up in `src/data/background.ts`. |
+| Background gradient, still | `public/bg/gradient.png` | regenerate | nice | Optional. Would act as the video poster and as the fallback for browsers without WebM. The CSS gradient currently fills that role at zero bytes, so this is only worth doing if you want the fallback to match the export exactly. |
 
 ## Experience
 

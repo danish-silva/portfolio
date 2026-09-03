@@ -18,11 +18,11 @@
   --surface-solid: #161022;
   --text: #ece9f5;
   --text-2: #c9c4d8;
-  --muted: #9b95ad;
+  --muted: #ada6c1;
   --border: rgb(255 255 255 / 0.1);
   --border-strong: rgb(255 255 255 / 0.2);
   /* Controls whose only boundary is their border need 3:1 against the page. */
-  --border-ui: #7d7690;
+  --border-ui: #8d85a2;
   --accent: #f28cc9;
   --accent-hover: #f7b3dc;
   --on-accent: #0e0b16;
@@ -90,6 +90,11 @@ video {
   Fixed layer behind everything. The CSS gradient stands in until the
   shadergradient export in src/data/background.ts is set; the image or video
   then sits on top of it, and ::after dims the result by --bg-dim.
+
+  The dim is not decorative. Measured against the brightest frame of the
+  current export, rgb(166 152 182), a dim below 0.6 drops body text, metadata
+  and links under WCAG AA. Re-measure before lowering it or swapping the
+  export.
 */
 .site-bg {
   position: fixed;
@@ -97,10 +102,10 @@ video {
   z-index: -1;
   overflow: hidden;
   background:
-    radial-gradient(70% 55% at 15% 10%, rgb(91 33 182 / 0.55), transparent 70%),
-    radial-gradient(55% 50% at 85% 20%, rgb(139 92 246 / 0.32), transparent 70%),
-    radial-gradient(60% 55% at 70% 95%, rgb(219 39 119 / 0.3), transparent 70%),
-    radial-gradient(50% 45% at 10% 85%, rgb(76 29 149 / 0.4), transparent 70%),
+    radial-gradient(70% 55% at 15% 10%, rgb(109 40 217 / 0.9), transparent 70%),
+    radial-gradient(55% 50% at 85% 20%, rgb(167 139 250 / 0.55), transparent 70%),
+    radial-gradient(60% 55% at 70% 95%, rgb(236 72 153 / 0.5), transparent 70%),
+    radial-gradient(50% 45% at 10% 85%, rgb(91 33 182 / 0.68), transparent 70%),
     var(--bg);
 }
 

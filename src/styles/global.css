@@ -87,14 +87,13 @@ video {
 /* ---------- Background ---------- */
 
 /*
-  Fixed layer behind everything. The CSS gradient stands in until the
-  shadergradient export in src/data/background.ts is set; the image or video
-  then sits on top of it, and ::after dims the result by --bg-dim.
+  Fixed layer behind everything. The CSS gradient paints first and is what
+  shows before the WebGL canvas mounts, and if WebGL is unavailable. The
+  shader canvas covers it, and ::after dims the result by --bg-dim.
 
-  The dim is not decorative. Measured against the brightest frame of the
-  current export, rgb(166 152 182), a dim below 0.6 drops body text, metadata
-  and links under WCAG AA. Re-measure before lowering it or swapping the
-  export.
+  The dim is not decorative. Text sits directly on this background, and
+  without enough of it body text, metadata and links fall under WCAG AA over
+  the shader's brightest areas. Re-measure after changing any shader value.
 */
 .site-bg {
   position: fixed;
@@ -102,33 +101,31 @@ video {
   z-index: -1;
   overflow: hidden;
   background:
-    radial-gradient(70% 55% at 15% 10%, rgb(109 40 217 / 0.9), transparent 70%),
-    radial-gradient(55% 50% at 85% 20%, rgb(167 139 250 / 0.55), transparent 70%),
-    radial-gradient(60% 55% at 70% 95%, rgb(236 72 153 / 0.5), transparent 70%),
-    radial-gradient(50% 45% at 10% 85%, rgb(91 33 182 / 0.68), transparent 70%),
+    radial-gradient(70% 55% at 15% 10%, rgb(85 0 94 / 0.85), transparent 70%),
+    radial-gradient(55% 50% at 85% 20%, rgb(150 49 157 / 0.45), transparent 70%),
+    radial-gradient(60% 55% at 70% 95%, rgb(215 158 225 / 0.15), transparent 70%),
+    radial-gradient(50% 45% at 10% 85%, rgb(85 0 94 / 0.6), transparent 70%),
     var(--bg);
 }
 
-.site-bg img,
-.site-bg video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+/*
+  The island wrapper must stay display:contents with no positioning. Giving a
+  display:contents element a position collapses it to a zero size box, and
+  react-three-fiber measures through it to size the canvas, so the shader ends
+  up stuck at the default 300 by 150 drawing buffer. The shader's own wrapper
+  is positioned by the style prop in ShaderBackground.tsx, and r3f sizes the
+  canvas itself.
+*/
+.site-bg astro-island {
+  display: contents;
 }
 
 .site-bg::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgb(6 4 12 / var(--bg-dim, 0.35));
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .site-bg video {
-    display: none;
-  }
+  z-index: 1;
+  background: rgb(6 4 12 / var(--bg-dim, 0.55));
 }
 
 a {

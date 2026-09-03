@@ -36,8 +36,7 @@ Where files go:
 | Favicon | `public/favicon.svg` | generate | launch | Initials mark unless you want something else. |
 | Open Graph image, 1200 by 630 | `public/og-default.png` | generate | launch | Name, tagline, location on a plain background. Shows when the link is shared on LinkedIn. |
 | Hero portrait | `src/assets/portrait.jpg` | photograph | nice | Optional. The hero works without one. If included: plain background, shoulders up, square crop. |
-| Background gradient, loop | `public/bg/gradient.webm` | exists | launch | Done. Figma export, 1026 by 738, 9.5 s loop, 3.4 MB WebM. Wired up in `src/data/background.ts`. |
-| Background gradient, still | `public/bg/gradient.png` | regenerate | nice | Optional. Would act as the video poster and as the fallback for browsers without WebM. The CSS gradient currently fills that role at zero bytes, so this is only worth doing if you want the fallback to match the export exactly. |
+| Background gradient | n/a | done | launch | No asset needed. The background is rendered live by @shadergradient/react; its settings live in `src/data/background.ts`. |
 
 ## Experience
 

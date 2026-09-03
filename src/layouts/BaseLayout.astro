@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import ShaderBackground from '../components/ShaderBackground';
 import { profile } from '../data/profile';
 import { background } from '../data/background';
 
@@ -12,7 +13,6 @@ interface Props {
 
 const { title, description = profile.tagline } = Astro.props;
 const fullTitle = title === profile.name ? title : `${title} | ${profile.name}`;
-const videoType = background.video?.endsWith('.webm') ? 'video/webm' : 'video/mp4';
 ---
 
 <!doctype html>
@@ -27,14 +27,7 @@ const videoType = background.video?.endsWith('.webm') ? 'video/webm' : 'video/mp
   </head>
   <body>
     <div class="site-bg" aria-hidden="true" style={`--bg-dim: ${background.dim}`}>
-      {background.image && <img src={background.image} alt="" decoding="async" />}
-      {
-        background.video && (
-          <video autoplay muted loop playsinline preload="metadata" poster={background.image ?? undefined}>
-            <source src={background.video} type={videoType} />
-          </video>
-        )
-      }
+      <ShaderBackground client:only="react" />
     </div>
     <a class="skip-link" href="#main">Skip to content</a>
     <Nav />

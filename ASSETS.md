@@ -71,12 +71,15 @@ Written up. Files go in `src/content/projects/mems-step-tracker-pcb/`, beside `i
 
 ### BrickPickNPlace
 
+Written, held as a draft pending dates. Files go in `src/content/projects/brickpicknplace/`, beside `index.md`.
+
 | Asset | Status | Priority | Notes |
 | --- | --- | --- | --- |
-| Cover: UR3e over the brick work area | lab or confirm | launch | Any clean photo from the project if one exists. |
-| Screenshots: vision pipeline stages, raw frame, HSV mask, HoughCircles stud detection, slot detection | confirm | strong | Regenerable from saved frames if you kept any; otherwise `lab`. Three or four small images in a row tell the whole story. |
-| Demo video: a full pick and place cycle | lab or confirm | strong | Same note as visual servoing: if it was recorded during the unit, it is `exists`. |
-| Diagram: ROS 2 node layout showing where the vision subsystem sits | generate | nice | Inline SVG. |
+| Cover: annotated detection frame | regenerate | launch | Your node already publishes exactly this on `detection_image`: boxes, the build-zone perimeter, studs and legal slots in one frame. Run it in continuous mode and grab the window. No lab booking needed if you have a bag or any recorded frames. |
+| Screenshot: detection with colour labels and confidence | regenerate | strong | Same source, cropped to the pickup side. Shows the shape and stud tests doing their work. |
+| Screenshot: build-zone grid with occupancy and free slots | regenerate | strong | The half of the node that is not object detection, and the harder half. Worth its own image. |
+| Video: one full pick and place cycle | lab or confirm | strong | Needs the arm. Check your phone and the unit submission folder first. |
+| Photo: the physical setup, arm, overhead camera, plate | lab or confirm | nice | Gives the reader the scale and the camera geometry the writeup describes. |
 
 ### Pitwall
 

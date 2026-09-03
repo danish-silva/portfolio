@@ -29,18 +29,18 @@ draft: true
 
 <!-- Keep the four headings below in this order so every project reads the same. Replace each TODO comment with prose; the comments render as nothing if left in. -->
 
-## The problem
+## The Problem
 
 <!-- TODO: What was being solved, and why it mattered. -->
 
-## My role
+## My Role
 
 <!-- TODO: What you specifically owned, especially if this was a team project. -->
 
-## Technical approach
+## Technical Approach
 
 <!-- TODO: Enough detail that an engineer can tell it was real. Regulator choice, protection thresholds, what LTspice showed, layout decisions. -->
 
-## Outcome and what I would do differently
+## Outcome and What I Would Do Differently
 
 <!-- TODO: What it achieved, measured where possible, and what you would change. -->

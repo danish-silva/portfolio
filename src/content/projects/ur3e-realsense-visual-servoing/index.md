@@ -30,17 +30,17 @@ order: 10
 draft: false
 ---
 
-## The problem
+## The Problem
 
 Sensors and Control for Mechatronic Systems set the brief: make a UR3e arm follow a checkerboard using an Intel RealSense camera mounted on the tool. The board is moved by hand, so the arm has to react continuously rather than execute a path planned in advance.
 
 Image based visual servoing closes the loop in the image itself. Instead of estimating where the target sits in three dimensions and then planning a motion to reach it, the controller works directly on the difference between where the feature points appear and where they should appear. That tolerates calibration error well. A small mistake in the tool to camera transform shows up as a slightly wrong velocity that the next frame corrects, rather than a wrong goal pose the robot drives confidently towards.
 
-## My role
+## My Role
 
 This ran as a team project for the subject, though most of the implementation was mine. I wrote both halves of the running system: the vision process that finds the board and turns it into a camera velocity, and the robot process that converts that velocity into joint motion and streams it to the arm. Tuning the controller gain and the velocity limits until the motion settled was also mine.
 
-## Technical approach
+## Technical Approach
 
 The system runs as two processes that talk over a TCP socket.
 
@@ -48,7 +48,7 @@ The vision process detects a 6 by 5 checkerboard in the RealSense colour stream 
 
 The robot process converts camera velocity into joint velocity. It applies the tool to camera transform to move the velocity into the robot's frame, then multiplies by the pseudoinverse of the UR3e Jacobian to get joint rates. Those become micro-step joint trajectories published to the arm through rosbridge at 15 to 20 Hz. Controller gain and per joint velocity limits are the two things that decide whether the result is responsive or unstable, and both were tuned by hand against the real arm.
 
-## Outcome and what I would do differently
+## Outcome and What I Would Do Differently
 
 The system worked. The arm tracked the board and held alignment as it was moved around by hand.
 

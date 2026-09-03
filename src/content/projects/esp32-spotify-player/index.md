@@ -29,18 +29,18 @@ draft: true
 
 <!-- This one is a personal build to show initiative outside coursework, so the tone can be more relaxed than the others. Keep the same four headings. -->
 
-## The problem
+## The Problem
 
 <!-- TODO: What you wanted to build and why. -->
 
-## My role
+## My Role
 
 <!-- TODO: Solo build, so say so, and note what you designed versus what you built on (Squeezelite-ESP32 and so on). -->
 
-## Technical approach
+## Technical Approach
 
 <!-- TODO: Audio path, input, display, enclosure design and print, anything that fought back. -->
 
-## Outcome and what I would do differently
+## Outcome and What I Would Do Differently
 
 <!-- TODO: Does it get used? What would version two change? -->

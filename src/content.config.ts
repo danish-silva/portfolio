@@ -50,7 +50,8 @@ const projects = defineCollection({
             caption: z.string().optional(),
           })
           .optional(),
-        // Lower numbers appear first in the grid.
+        // Tie breaker only. The grid sorts newest first on the dates above;
+        // this decides between two projects that ran over the same period.
         order: z.number().int().default(100),
         // Drafts are excluded from the grid, the popup and the standalone
         // page, so an unfinished writeup can never ship by accident.

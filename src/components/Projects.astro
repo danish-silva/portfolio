@@ -1,14 +1,23 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import ProjectCard from './ProjectCard.astro';
 import ProjectDialog from './ProjectDialog.astro';
 import ProjectFilter from './ProjectFilter.astro';
 import SectionHeading from './SectionHeading.astro';
 import { PROJECT_TAGS } from '../data/tags';
 
-const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort(
-  (a, b) => a.data.order - b.data.order,
-);
+// Newest first. Sorting on the dates rather than a hand kept number means a
+// new project lands in the right place on the strength of its own frontmatter,
+// with `order` left only to break a tie between two that ran at the same time.
+const finished = (p: CollectionEntry<'projects'>) =>
+  (p.data.endDate ?? p.data.startDate)?.getTime() ?? 0;
+const began = (p: CollectionEntry<'projects'>) => p.data.startDate?.getTime() ?? 0;
+
+const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort((a, b) => {
+  // Anything still running is the most recent thing there is.
+  if (a.data.ongoing !== b.data.ongoing) return a.data.ongoing ? -1 : 1;
+  return finished(b) - finished(a) || began(b) - began(a) || a.data.order - b.data.order;
+});
 
 // Only offer filters for tags that at least one published project carries.
 const tagsInUse = PROJECT_TAGS.filter((tag) => projects.some((p) => p.data.tags.includes(tag)));

@@ -15,7 +15,7 @@ tools:
   - Intel RealSense D435
   - Universal Robots UR3e
 links:
-  - label: Source code
+  - label: Source Code
     url: https://github.com/danish-silva/UR3eVisualServoing
 # TODO: footage exists and is being uploaded. Drop the file into
 # public/media/ur3e-realsense-visual-servoing/ and a still beside this file,

@@ -20,8 +20,8 @@ export const profile = {
     'Open to 2027 graduate roles in robotics, embedded systems, electronics, computer vision and mechanical design.',
   // TODO: confirm CTA wording.
   cta: {
-    primary: { label: 'See my projects', href: '#projects' },
-    secondary: { label: 'Get in touch', href: '#contact' },
-    tertiary: { label: 'Download resume', href: '/Danish-Silva-Resume.pdf' },
+    primary: { label: 'See My Projects', href: '#projects' },
+    secondary: { label: 'Get in Touch', href: '#contact' },
+    tertiary: { label: 'Download Resume', href: '/Danish-Silva-Resume.pdf' },
   },
 } as const;

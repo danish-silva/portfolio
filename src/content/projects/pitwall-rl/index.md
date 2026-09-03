@@ -10,7 +10,7 @@ title: Pitwall
 # tags: []
 # tools: []
 # links:
-#   - label: Source code
+#   - label: Source Code
 #     url: https://github.com/danish-silva/...
 # cover:
 #   src: ./cover.png       # file placed beside this index.md

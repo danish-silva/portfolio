@@ -19,7 +19,7 @@ export const tagLabels: Record<ProjectTag, string> = {
   pcb: 'PCB',
   mechanical: 'Mechanical',
   controls: 'Controls',
-  'machine-learning': 'Machine learning',
+  'machine-learning': 'Machine Learning',
 };
 
 export function tagLabel(tag: string): string {

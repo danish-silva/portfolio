@@ -71,7 +71,7 @@ Written up. Files go in `src/content/projects/mems-step-tracker-pcb/`, beside `i
 
 ### BrickPickNPlace
 
-Written, held as a draft pending dates. Files go in `src/content/projects/brickpicknplace/`, beside `index.md`.
+Written up. Files go in `src/content/projects/brickpicknplace/`, beside `index.md`.
 
 | Asset | Status | Priority | Notes |
 | --- | --- | --- | --- |

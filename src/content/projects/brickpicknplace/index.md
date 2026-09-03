@@ -1,10 +1,8 @@
 ---
 title: BrickPickNPlace
 summary: "The perception node for a UR3e that builds LEGO figures: it finds and classifies the bricks on the table, and works out where on the plate the next one can legally go."
-# TODO: dates. Which semester was Robotics Studio 2? The grid sorts on these,
-# and the entry cannot publish without them.
-# startDate: 2026-0?-01
-# endDate: 2026-0?-01
+startDate: 2026-02-01
+endDate: 2026-06-01
 tags:
   - robotics
 tools:
@@ -34,7 +32,7 @@ links:
 #   src: /media/brickpicknplace/cycle.mp4
 #   caption: One full pick and place cycle.
 order: 30
-draft: true
+draft: false
 ---
 
 ## The Problem
@@ -63,6 +61,6 @@ Calibration is two interactive steps, saved to disk so it survives a restart. Dr
 
 ## Outcome and What I Would Do Differently
 
-<!-- TODO: did it run end to end on the real arm, and how reliably did detection hold up in the lab? Any figure at all beats an adjective here. -->
+The node did everything it was specified to do, running as part of the full system rather than on its own. Calibration held once it was set. Bricks came out with the right colour and size variant, and with a three dimensional pose the motion side could transform into the robot frame and act on directly. The plate analysis reported occupied and free studs correctly and produced legal placement slots for the interaction node to choose from.
 
-The limitations I would fix first are all in the calibration and the slot search. Registering the grid from two clicked corners assumes the plate is square to the camera, so an oblique plate has to be physically straightened rather than corrected in software; taking four corners instead and solving a perspective transform would remove that constraint entirely. Stud verification degrades past roughly thirty degrees of camera obliquity, where studs project as ellipses and the circle detector stops finding them, which is the same problem from the other direction. The slot search also only ever looks for 4 by 2 footprints, so a plate holding mixed brick sizes cannot be planned properly until the window generalises to the variant table the detector already carries.
+The boundaries are in the calibration and the slot search, and they are constraints I set rather than faults I found later. Registering the grid from two clicked corners assumes the plate is square to the camera, so an oblique plate has to be physically straightened rather than corrected in software. Taking four corners and solving a perspective transform would remove that, and would also help the related case where stud verification degrades past roughly thirty degrees of obliquity, because studs project as ellipses and the circle detector stops finding them. The slot search only ever looks for 4 by 2 footprints, so a plate holding mixed brick sizes cannot be planned properly until that window generalises to the variant table the detector already carries. That is the first thing I would build next.

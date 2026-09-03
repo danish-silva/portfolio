@@ -5,24 +5,33 @@ import Icon from './icons/Icon.astro';
 const dates = `${education.start} to ${education.end}${education.expected ? ' (expected)' : ''}`;
 ---
 
-<aside class="education-card glass" aria-labelledby="education-heading">
-  <h3 id="education-heading"><Icon name="education" />Education</h3>
-  <p class="education-degree">{education.degree}, {education.major}</p>
-  <p class="education-school">{education.university}</p>
-  <dl class="education-facts">
-    <dt>Dates</dt>
-    <dd>{dates}</dd>
-    <dt>WAM</dt>
-    <dd>{education.wam}</dd>
-    <dt>Sub-major</dt>
-    <dd>{education.subMajor}</dd>
-    {
-      education.subjects.length > 0 && (
-        <>
-          <dt>Relevant subjects</dt>
-          <dd>{education.subjects.join(', ')}</dd>
-        </>
-      )
-    }
-  </dl>
+<!--
+  The label sits outside the card so a second qualification can be added as
+  another card underneath without the heading ending up inside one of them.
+-->
+<aside class="education" aria-labelledby="education-heading">
+  <h3 class="education-label glass" id="education-heading">
+    <Icon name="education" />Education
+  </h3>
+
+  <div class="education-card glass">
+    <p class="education-dates">{dates}</p>
+    <p class="education-degree">{education.degree}</p>
+    <p class="education-major">{education.major}</p>
+    <p class="education-school">{education.university}</p>
+    <dl class="education-facts">
+      <dt>Sub-major</dt>
+      <dd>{education.subMajor}</dd>
+      <dt>WAM</dt>
+      <dd>{education.wam}</dd>
+      {
+        education.subjects.length > 0 && (
+          <>
+            <dt>Subjects</dt>
+            <dd>{education.subjects.join(', ')}</dd>
+          </>
+        )
+      }
+    </dl>
+  </div>
 </aside>

@@ -642,18 +642,6 @@ main {
   }
 }
 
-/* The education mark sits on the heading baseline rather than above it. */
-.education-card h3 {
-  display: flex;
-  align-items: center;
-  gap: 0.45rem;
-}
-
-.education-card h3 .icon {
-  flex: none;
-  color: var(--border-ui);
-}
-
 /* ---------- Hero ---------- */
 
 .hero {
@@ -719,32 +707,70 @@ main {
 
 @media (min-width: 48rem) {
   .about-layout {
-    grid-template-columns: minmax(0, 1fr) 17rem;
+    grid-template-columns: minmax(0, 1fr) 21rem;
     align-items: start;
   }
 }
 
+.education-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-block-end: 0.75rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--text-2);
+}
+
+.education-label .icon {
+  flex: none;
+  color: var(--muted);
+}
+
 .education-card {
-  padding: 1.25rem;
+  padding: 1.25rem 1.35rem;
   border-radius: var(--radius);
   font-size: 0.9375rem;
 }
 
-.education-card h3 {
-  font-size: 0.8125rem;
-  font-weight: 600;
+/* Dates lead the card in the same monospace treatment the roles and
+   projects use, so the same kind of information looks the same everywhere. */
+.education-dates {
+  margin-block-end: 0.9rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
   color: var(--muted);
-  margin-block-end: 0.75rem;
 }
 
 .education-degree {
-  font-weight: 600;
-  text-wrap: pretty;
+  font-weight: 650;
+  font-size: 1rem;
+  line-height: 1.25;
+  /*
+    No nowrap here. The column is sized so the full title holds one line in
+    every face in the stack, with about 25px to spare, so forcing it would
+    only mean overflowing instead of wrapping if someone zooms or raises
+    their default text size.
+  */
+}
+
+.education-major {
+  font-weight: 650;
+  font-size: 1rem;
+  line-height: 1.25;
+  color: var(--text);
 }
 
 .education-school {
+  margin-block: 0.7rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
   color: var(--text-2);
-  margin-block: 0.25rem 1rem;
 }
 
 .education-facts {

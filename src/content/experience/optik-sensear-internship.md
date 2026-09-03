@@ -10,11 +10,11 @@ location: Botany, NSW
 startDate: 2026-05-01
 endDate: 2026-08-01
 tags:
-  - Team leadership
-  - Power electronics
-  - Sensor front end
-  - PCB design
-  - Compliance testing
+  - Team Leadership
+  - Power Electronics
+  - Sensor Front End
+  - PCB Design
+  - Compliance Testing
 order: 1
 ---
 

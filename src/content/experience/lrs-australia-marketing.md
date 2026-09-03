@@ -9,10 +9,10 @@ location: North Sydney, NSW
 startDate: 2022-03-01
 endDate: 2024-06-01
 tags:
-  - Stakeholder management
-  - Client communication
-  - Event operations
-  - Fault diagnosis
+  - Stakeholder Management
+  - Client Communication
+  - Event Operations
+  - Fault Diagnosis
 order: 2
 ---
 

@@ -1166,6 +1166,7 @@ body:has(dialog[open]) {
   layered on top and stay hidden until the script attaches.
 */
 .carousel {
+  position: relative;
   margin-block-end: 2rem;
 }
 
@@ -1198,23 +1199,42 @@ body:has(dialog[open]) {
   border-radius: var(--radius);
 }
 
+/*
+  The controls sit over the image rather than under it, so paging costs no
+  vertical space. The layer itself ignores the pointer; only the controls in
+  it take clicks, so the image stays selectable and swipeable.
+*/
 .carousel-controls {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  /* Set by the script from the visible image. The fallback only matters for
+     the frame before it runs, and the layer is hidden until then. */
+  /*
+    Deliberately not transitioned. A height transition on this layer starts
+    while the popup is still display:none, gets no frames to advance through,
+    and leaves the layer stuck at its 0px start value once the dialog opens.
+  */
+  height: var(--carousel-image-height, 100%);
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 0.75rem;
-  margin-block-start: 0.9rem;
+  justify-content: space-between;
+  padding-inline: 0.75rem;
+  pointer-events: none;
 }
 
-.carousel-count {
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  color: var(--muted);
-  /* Fixed width so the row does not shuffle as the digits change. */
-  min-width: 4ch;
-  text-align: center;
+.carousel-controls > * {
+  pointer-events: auto;
 }
 
+/*
+  These sit on whatever the slide happens to be, a white schematic or a near
+  black photograph, so neither the fill nor the rim can be relied on alone.
+  Measured against both extremes: on white the dark fill carries it at 7.6:1,
+  on a dark photo the fill disappears and the rim carries it at 4.4:1. The
+  glyph never drops below 7.6:1 against its own fill.
+*/
 .carousel-button {
   display: inline-flex;
   align-items: center;
@@ -1222,9 +1242,13 @@ body:has(dialog[open]) {
   width: 2.75rem;
   height: 2.75rem;
   padding: 0;
+  border: 1px solid rgb(255 255 255 / 0.45);
   border-radius: 999px;
-  color: var(--text);
+  background: rgb(20 14 32 / 0.72);
+  color: #ffffff;
   cursor: pointer;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   transition:
     transform var(--dur-fast) var(--ease-out),
     background-color var(--dur-fast) ease,
@@ -1233,21 +1257,38 @@ body:has(dialog[open]) {
 }
 
 .carousel-button[disabled] {
-  opacity: 0.35;
+  opacity: 0.3;
   cursor: default;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .carousel-button:not([disabled]):hover {
-    background: var(--glass-bg-hover);
-    border-color: var(--glass-border-hover);
-    box-shadow: var(--glass-edge), var(--glass-lift);
+    background: rgb(20 14 32 / 0.88);
+    border-color: rgb(255 255 255 / 0.7);
   }
 }
 
 .carousel-button:not([disabled]):active {
   transform: scale(0.94);
   transition-duration: 100ms;
+}
+
+/* Top left, clear of both the captions at the foot of a slide and the next
+   button on the right. */
+.carousel-count {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid rgb(255 255 255 / 0.45);
+  border-radius: 999px;
+  background: rgb(20 14 32 / 0.72);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 @media (prefers-reduced-motion: reduce) {

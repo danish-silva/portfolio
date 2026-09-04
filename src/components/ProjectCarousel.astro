@@ -61,21 +61,21 @@ const { slides, title, id } = Astro.props;
 
       {slides.length > 1 && (
         <div class="carousel-controls" data-carousel-controls hidden>
+          <p class="carousel-count" data-carousel-count aria-live="polite">
+            1 / {slides.length}
+          </p>
           <button
             type="button"
-            class="carousel-button glass"
+            class="carousel-button"
             data-carousel-prev
             aria-controls={`${id}-track`}
             aria-label="Previous image"
           >
             <Icon name="arrow-left" size={18} />
           </button>
-          <p class="carousel-count" data-carousel-count aria-live="polite">
-            1 / {slides.length}
-          </p>
           <button
             type="button"
-            class="carousel-button glass"
+            class="carousel-button"
             data-carousel-next
             aria-controls={`${id}-track`}
             aria-label="Next image"
@@ -106,10 +106,27 @@ const { slides, title, id } = Astro.props;
 
     let index = 0;
 
+    // Captions live inside each slide, so a control layer stretched over the
+    // whole track would centre the buttons over image plus caption and leave
+    // them sitting low. The layer is pinned to the height of the image that is
+    // actually showing instead. Slides do not share an aspect ratio, so this
+    // is measured rather than assumed, and it moves with the slide.
+    function fitControls() {
+      const image = slides[index]?.querySelector('img');
+      if (!image) return;
+      // A carousel inside a closed popup measures zero. Writing that would
+      // collapse the layer and leave the buttons stacked in a corner when the
+      // popup next opens, so a zero measurement is ignored.
+      const height = image.offsetHeight;
+      if (height === 0) return;
+      carousel.style.setProperty('--carousel-image-height', `${height}px`);
+    }
+
     function render() {
       count!.textContent = `${index + 1} / ${slides.length}`;
       previous!.disabled = index === 0;
       next!.disabled = index === slides.length - 1;
+      fitControls();
     }
 
     function goTo(target: number) {
@@ -160,6 +177,10 @@ const { slides, title, id } = Astro.props;
       index = 0;
       render();
     });
+
+    // The images are width driven, so their height changes with the viewport
+    // and, in the popup, with the dialog opening at all.
+    new ResizeObserver(fitControls).observe(track);
 
     render();
     controls.hidden = false;

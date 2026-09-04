@@ -1194,9 +1194,21 @@ body:has(dialog[open]) {
   margin: 0;
 }
 
+/*
+  Every slide is presented in the same 3:2 box, whatever the source image is.
+  Five of the six are already exactly 3:2, so only the wide routing render is
+  letterboxed, and in exchange the box height never changes, which is what
+  keeps the overlaid buttons at a fixed height as you page across. contain
+  rather than cover, because cropping a routing diagram loses signal.
+*/
 .carousel-slide img {
   width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: contain;
   border-radius: var(--radius);
+  /* Only ever visible behind the letterboxed slide. Without it that image
+     floats on the shader while every other one fills the box edge to edge. */
+  background: var(--glass-bg);
 }
 
 /*
@@ -1211,12 +1223,10 @@ body:has(dialog[open]) {
   left: 0;
   /* Set by the script from the visible image. The fallback only matters for
      the frame before it runs, and the layer is hidden until then. */
-  /*
-    Deliberately not transitioned. A height transition on this layer starts
-    while the popup is still display:none, gets no frames to advance through,
-    and leaves the layer stuck at its 0px start value once the dialog opens.
-  */
-  height: var(--carousel-image-height, 100%);
+  /* The same ratio the images are boxed at, so the layer covers the image and
+     nothing else. Derived from the width rather than measured, which is why
+     the buttons hold their height across slides. */
+  aspect-ratio: 3 / 2;
   display: flex;
   align-items: center;
   justify-content: space-between;

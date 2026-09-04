@@ -6,7 +6,13 @@ import { PROJECT_TAGS } from './data/tags';
 
 const link = z.object({
   label: z.string(),
-  url: z.string().url(),
+  // Either an absolute URL, or a path starting with / for a file this site
+  // hosts itself, such as a datasheet in public/.
+  url: z
+    .string()
+    .refine((value) => value.startsWith('/') || z.string().url().safeParse(value).success, {
+      message: 'must be an absolute URL or a site path starting with /',
+    }),
 });
 
 // One folder per project: src/content/projects/<slug>/index.md with any

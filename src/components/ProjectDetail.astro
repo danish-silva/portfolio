@@ -7,6 +7,7 @@ import { Image } from 'astro:assets';
 import { render, type CollectionEntry } from 'astro:content';
 import ImageSlot from './ImageSlot.astro';
 import GitHubIcon from './icons/GitHubIcon.astro';
+import Icon from './icons/Icon.astro';
 import TagList from './TagList.astro';
 import { formatRange } from '../utils/dates';
 
@@ -27,9 +28,13 @@ function isGitHub(url: string): boolean {
   try {
     return new URL(url).hostname.replace(/^www\./, '') === 'github.com';
   } catch {
+    // A site relative path, which is never GitHub.
     return false;
   }
 }
+
+// A file the visitor will end up with rather than a page they will land on.
+const isDownload = (url: string) => url.toLowerCase().endsWith('.pdf');
 ---
 
 <article class="project-detail">
@@ -45,6 +50,7 @@ function isGitHub(url: string): boolean {
               <li>
                 <a class="button glass" href={link.url} rel="noopener">
                   {isGitHub(link.url) && <GitHubIcon />}
+                  {isDownload(link.url) && <Icon name="download" />}
                   {link.label}
                 </a>
               </li>
@@ -62,8 +68,8 @@ function isGitHub(url: string): boolean {
         <Image
           src={cover.src}
           alt={cover.alt}
-          widths={[480, 800, 1200]}
-          sizes="(min-width: 60rem) 56rem, 100vw"
+          widths={[640, 1024, 1600]}
+          sizes="(min-width: 68rem) 64rem, 100vw"
         />
       ) : (
         <ImageSlot label={`cover image for ${title}`} />
@@ -90,7 +96,12 @@ function isGitHub(url: string): boolean {
         {gallery.map((item) => (
           <li>
             <figure>
-              <Image src={item.src} alt={item.alt} widths={[400, 800]} sizes="(min-width: 60rem) 28rem, 100vw" />
+              <Image
+                src={item.src}
+                alt={item.alt}
+                widths={[640, 1024, 1600]}
+                sizes="(min-width: 68rem) 64rem, 100vw"
+              />
               {item.caption && <figcaption>{item.caption}</figcaption>}
             </figure>
           </li>

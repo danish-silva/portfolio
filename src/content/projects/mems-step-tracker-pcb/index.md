@@ -17,24 +17,32 @@ tools:
 links:
   - label: Firmware
     url: https://github.com/danish-silva/StepTracker
+  - label: System Datasheet
+    url: /docs/mems-step-tracker-datasheet.pdf
 # The Altium 365 workspace link redirects to a sign-in page, so anyone without
 # a UTS account hits a login wall. Publish the design to a public share link
 # from Altium 365 and add it here as a second entry labelled Hardware.
 #   - label: Hardware
 #     url: https://university-of-technology-sydney-faculty-of-engineering-2.365.altium.com/designs/4C01074D-5049-47C3-92B1-7BAC2B0305B6
-# TODO: you have the board, an Altium 3D render and a schematic export. Drop
-# them beside this file and uncomment. Cover should be the render or a photo
-# of the assembled board.
-# cover:
-#   src: ./cover.png
-#   alt: The assembled ESP32 shield, seen from above
-# gallery:
-#   - src: ./schematic-psu.png
-#     alt: Schematic of the 3.3V regulator with over-current and over-voltage protection
-#     caption: The power supply section, with both protection circuits.
-#   - src: ./board.jpg
-#     alt: The fabricated shield soldered and plugged onto the ESP32 dev board
-#     caption: Assembled and seated on the dev board it was sized around.
+cover:
+  src: ./cover.jpg
+  alt: Altium 3D render of the assembled shield, showing the barrel jack, battery connector, op-amps, BNC connector and rotary encoder
+gallery:
+  - src: ./power_schematic.png
+    alt: Power supply schematic with polyfuse, reverse polarity MOSFET, TVS clamp and the 3.3V LDO regulator
+    caption: The supply, annotated. Three protection stages sit ahead of the regulator, and five test points let the rails be probed rather than assumed.
+  - src: ./filter_schematic.png
+    alt: Three identical channels, each a unity gain buffer followed by a second order Sallen-Key low pass filter
+    caption: One conditioning chain per accelerometer axis, buffered so the sensor cannot pull the filter corner around.
+  - src: ./pcb_routing.png
+    alt: PCB layout showing the routed traces, component placement and the two header rows that seat onto the dev board
+    caption: The routing, kept inside the dev board outline with the analogue section held away from the supply.
+  - src: ./device_out_of_enclosure.png
+    alt: The fabricated shield soldered and seated on the ESP32 dev board underneath it
+    caption: Assembled and seated on the board it was sized around.
+  - src: ./device_in_enclosure.png
+    alt: The finished tracker in a black printed enclosure, OLED lit and showing a step count
+    caption: Running in its enclosure, with the step count and the idle, walking and running state on the display.
 order: 20
 draft: false
 ---
@@ -51,9 +59,9 @@ A team project. I owned the power supply design and picked up the analogue filte
 
 ## Technical Approach
 
-Power is a 3.3V LDO regulator with over-current and over-voltage protection built around it. I modelled the regulator and both protection circuits in LTspice before committing to fabrication, checking the current the board would actually draw and confirming the protection tripped at the thresholds I had designed for rather than somewhere near them.
+Power arrives from either a barrel jack or a lithium polymer cell, and passes three protection stages before it reaches anything that matters. A resettable polyfuse opens if the load draws more than 500 mA. A P-channel MOSFET blocks reverse polarity, chosen over a series diode because it wastes far less voltage in normal operation. A TVS diode clamps anything above five volts, which is what a bench supply transient tends to look like. Only then does the regulator, an AP2112K, take the input down to a 3.3V rail. I modelled the regulator and the protection in LTspice before committing to fabrication, checking the current the board would actually draw and confirming each stage tripped where I had designed it to rather than somewhere near it. Five test points sit on the board for the same reason: so the rails can be probed instead of assumed.
 
-The ADXL335 puts out three analogue channels, one per axis, so the front end is three matching signal conditioning filters. Each sets the gain the ADC needs and rolls off above 50 Hz, comfortably clear of the one to three hertz a walking step produces while keeping higher frequency noise out of the band that matters.
+The ADXL335 puts out three analogue channels, one per axis, so the front end is three identical conditioning chains. Each opens with a unity gain buffer, which presents a high impedance to the accelerometer so the sensor's own output resistance cannot drag the filter's corner frequency around with it, and follows with a second order Sallen-Key low pass tuned as a Butterworth for a flat passband and a steeper roll off than a single RC stage could manage. With 6.8k resistors and 680 nF and 330 nF capacitors the corner lands at 50.4 Hz and the Q at 0.718, near enough to the 0.707 a Butterworth asks for. That leaves the one to three hertz of a walking step completely untouched while keeping the noise above it out.
 
 The rest of the board was integration. Subsystems came from different people, so the schematic had to reconcile them: separating the power domains so the supply and analogue sections did not share a return path, keeping the filter traces short and away from noisy nets, and placing every component so the whole thing still fitted the dev board outline.
 

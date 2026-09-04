@@ -56,18 +56,20 @@ No images planned. The Optik Consultancy entry is text only, and anything showin
 | Diagram: IBVS pipeline, camera to detection to image error to interaction matrix to Jacobian pseudoinverse to joint velocities | generate | strong | Inline SVG, no access needed. |
 | Screenshot: ROS node graph or rosbridge terminal at 15 to 20 Hz | confirm | nice | Only if a screenshot already exists. |
 
-### MEMS-Based Step Tracker PCB
+### MEMS-Based Step Tracker
 
-Written up. Files go in `src/content/projects/mems-step-tracker-pcb/`, beside `index.md`.
+Done. Cover, five gallery images and the system datasheet are all in.
 
-| Asset | Status | Priority | Notes |
-| --- | --- | --- | --- |
-| Cover: Altium 3D render or a photo of the assembled shield | exists | launch | You have both. Pick whichever reads better small; the render is usually cleaner as a card cover. |
-| Schematic crop: 3.3V regulator with over-current and over-voltage protection | exists | strong | The part you owned, and the part the writeup spends most time on. Crop to the PSU section rather than exporting the whole sheet. |
-| Photo: fabricated board seated on the ESP32 dev board | exists | strong | Shows the size constraint the whole project turned on, which no render conveys. |
-| Plot: LTspice current draw and protection thresholds | missing | nice | You no longer have the simulation. Only worth redoing if you happen to rebuild the model; the writeup stands without it. |
-| Photo: OLED showing a live step count | photograph | strong | You have the board. A shot of the menu or a step count on the display is the one asset that proves the firmware runs, which no render or schematic can do. |
-| Layout screenshot: top and bottom copper | software | nice | Altium 2D export, if you want to show the routing you did. |
+| Asset | Status | Notes |
+| --- | --- | --- |
+| Cover: Altium 3D render | done | `cover.jpg` |
+| Power schematic | done | `power_schematic.png` |
+| Filter schematic | done | `filter_schematic.png` |
+| PCB layout | done | `pcb_routing.png` |
+| Assembled board on the dev board | done | `device_out_of_enclosure.png` |
+| Finished device, OLED live | done | `device_in_enclosure.png` |
+| System datasheet | done | `public/docs/mems-step-tracker-datasheet.pdf`, linked from the project |
+| Plot: LTspice thresholds | missing | Simulation no longer held. The writeup stands without it. |
 
 ### BrickPickNPlace
 

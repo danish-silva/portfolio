@@ -73,15 +73,16 @@ Done. Cover, five gallery images and the system datasheet are all in.
 
 ### BrickPickNPlace
 
-Written up. Files go in `src/content/projects/brickpicknplace/`, beside `index.md`.
+Done. Stills sit in `src/content/projects/brickpicknplace/` beside `index.md`; clips sit in `public/media/brickpicknplace/`.
 
 | Asset | Status | Priority | Notes |
 | --- | --- | --- | --- |
-| Cover: annotated detection frame | regenerate | launch | Your node already publishes exactly this on `detection_image`: boxes, the build-zone perimeter, studs and legal slots in one frame. Run it in continuous mode and grab the window. No lab booking needed if you have a bag or any recorded frames. |
-| Screenshot: detection with colour labels and confidence | regenerate | strong | Same source, cropped to the pickup side. Shows the shape and stud tests doing their work. |
-| Screenshot: build-zone grid with occupancy and free slots | regenerate | strong | The half of the node that is not object detection, and the harder half. Worth its own image. |
-| Video: one full pick and place cycle | lab or confirm | strong | Needs the arm. Check your phone and the unit submission folder first. |
-| Photo: the physical setup, arm, overhead camera, plate | lab or confirm | nice | Gives the reader the scale and the camera geometry the writeup describes. |
+| Cover: annotated detection frame | done | launch | `cover.png`. Two bricks labelled, verified, over the build-zone grid. |
+| Photo: the physical setup | done | nice | `ur3e_image.jpg`. Portrait, so it fills about half the 3:2 frame and the rest is a blurred backdrop. A landscape shot would fill it properly. |
+| Screenshot: pre-calibration frame | done | strong | `bricks_placed_snapshot.png`. |
+| Video: one full pick and place cycle | done | strong | `demo.mp4`, 42s. Portrait 360x640, so it also only fills part of the frame. Two lab-mates are recognisable in the background, worth a thought before this is public. |
+| Video: first iteration | done | nice | `first_iteration.mp4`, 16s. Re-encoded from 27.9 MiB to 1.4 MiB and cropped to the detector window. |
+| Screenshot: second setup | done | nice | `rosbag_image_setup2.png`. Still 4:3 rather than 3:2. |
 
 ### Pitwall
 
@@ -129,7 +130,7 @@ Written up. Files go in `src/content/projects/firered-rl-agent/`, beside `index.
 
 These are the items where waiting until week six would hurt. Everything else can be done at a desk.
 
-1. **Robot lab booking** for the visual servoing and BrickPickNPlace covers, and for demo videos if none were recorded during the units. One session covers both projects.
+1. **Robot lab booking** for the visual servoing cover, and for demo videos if none were recorded during the units.
 2. **Altium access** for the step tracker 3D render, schematic crop and layout export. Three exports in one sitting.
 3. **SolidWorks access** for the Spotify player enclosure render, if the model still exists.
 4. **Find out what already exists.** Before booking anything, check your phone, the unit submission folders and any group chats for videos and photos from the UR3e units. Anything found there moves from `lab` to `exists` and may make the booking unnecessary.

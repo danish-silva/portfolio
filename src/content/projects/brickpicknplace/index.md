@@ -16,21 +16,27 @@ tools:
 links:
   - label: Source Code
     url: https://github.com/danish-silva/BrickPickNPlace
-# TODO: the annotated detection image the node already publishes is the ideal
-# cover, since it shows detection and the build-zone grid in one frame.
-# cover:
-#   src: ./cover.png
-#   alt: Annotated camera frame showing detected bricks, the build-zone grid and free placement slots
-# gallery:
-#   - src: ./detection.png
-#     alt: Detected bricks with colour labels, bounding boxes and confidence scores
-#     caption: Shape matching and stud verification on the pickup side.
-#   - src: ./build-zone.png
-#     alt: The 12 by 14 stud grid with occupied studs marked and legal slots highlighted
-#     caption: Occupancy and the legal 4 by 2 slots found by the sliding window.
-# video:
-#   src: /media/brickpicknplace/cycle.mp4
-#   caption: One full pick and place cycle.
+cover:
+  src: ./cover.png
+  alt: Annotated camera frame with two bricks detected and labelled BLACK and BLUE, each carrying a stud count, a confidence score, its size in millimetres and its position in metres, over the cyan build zone grid
+gallery:
+  - src: ./ur3e_image.jpg
+    alt: UR3e arm with a RealSense depth camera mounted above the wrist and a parallel jaw gripper below it, standing over a white base plate with black, blue and red bricks laid out beside it
+    caption: The rig the node runs on. The camera is fixed above the wrist and everything it publishes goes out in the camera optical frame, so the interaction node is the one that transforms into the robot base frame.
+  - src: ./bricks_placed_snapshot.png
+    alt: Camera frame showing a blue and a red brick on the base plate, both marked VERIFIED, with the build zone grid overlaid and a counter reading 152 of 168 studs free and 118 slots
+    caption: An early frame taken before the camera went onto the arm. Both bricks are verified, and the grid reports 152 of 168 studs free with 118 legal slots left to place into.
+  - video: /media/brickpicknplace/demo.mp4
+    poster: ./demo_poster.jpg
+    alt: The UR3e picking bricks off the table and placing them onto the base plate
+    caption: The full system running, with the arm working through a figure a brick at a time.
+  - video: /media/brickpicknplace/first_iteration.mp4
+    poster: ./first_iteration_poster.jpg
+    alt: Recording of the detector window finding four bricks on the workspace and labelling each with its colour, size, angle and confidence, with no build zone grid drawn over the plate
+    caption: The first iteration, recorded before the work zone corners and the plate corners had been set. The node finds the bricks on the table, but with no calibrated grid behind it there is nowhere yet to say they can go.
+  - src: ./rosbag_image_setup2.png
+    alt: Camera frame of a second brick arrangement with four bricks detected, the two black ones showing a stud count of 2 and a lower confidence than the red and blue
+    caption: "A second arrangement, and the case where the confidence score earns its keep. The black bricks are still found and classified correctly, but HoughCircles clears only two of the eight studs on them: printed black PLA under that lighting gives the circle detector almost nothing to lock onto, so they come through verified at a visibly lower score than the red and blue beside them."
 order: 30
 draft: false
 ---

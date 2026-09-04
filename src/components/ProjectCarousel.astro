@@ -10,11 +10,20 @@ import type { ImageMetadata } from 'astro';
 import ImageSlot from './ImageSlot.astro';
 import Icon from './icons/Icon.astro';
 
-interface Slide {
+interface ImageSlide {
   src: ImageMetadata;
   alt: string;
   caption?: string;
 }
+
+interface VideoSlide {
+  video: string;
+  poster?: ImageMetadata;
+  alt: string;
+  caption?: string;
+}
+
+type Slide = ImageSlide | VideoSlide;
 
 interface Props {
   slides: Slide[];
@@ -23,6 +32,22 @@ interface Props {
 }
 
 const { slides, title, id } = Astro.props;
+
+const isVideo = (slide: Slide): slide is VideoSlide => 'video' in slide;
+
+// Slides are presented in a fixed 3:2 frame, so anything shot in another shape
+// leaves the frame part empty. A blurred, dimmed copy of the media fills that
+// space, which reads as deliberate where a flat panel reads as a gap. Media
+// that already matches the frame covers it completely, so it gets no backdrop
+// at all rather than a hidden image nobody will ever see.
+const FRAME_RATIO = 3 / 2;
+
+function backdropFor(slide: Slide) {
+  const source = isVideo(slide) ? slide.poster : slide.src;
+  if (!source) return undefined;
+  const ratio = source.width / source.height;
+  return Math.abs(ratio - FRAME_RATIO) / FRAME_RATIO > 0.02 ? source : undefined;
+}
 ---
 
 {
@@ -46,13 +71,39 @@ const { slides, title, id } = Astro.props;
             aria-label={`${index + 1} of ${slides.length}`}
           >
             <figure>
-              <Image
-                src={slide.src}
-                alt={slide.alt}
-                widths={[640, 1024, 1600]}
-                sizes="(min-width: 68rem) 64rem, 100vw"
-                loading={index === 0 ? 'eager' : 'lazy'}
-              />
+              <div class="carousel-frame">
+              {backdropFor(slide) && (
+                <Image
+                  class="carousel-backdrop"
+                  src={backdropFor(slide)!}
+                  alt=""
+                  aria-hidden="true"
+                  width={96}
+                  densities={[1]}
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                />
+              )}
+              {isVideo(slide) ? (
+                <video
+                  class="carousel-media"
+                  controls
+                  playsinline
+                  preload="metadata"
+                  src={slide.video}
+                  poster={slide.poster?.src}
+                  aria-label={slide.alt}
+                />
+              ) : (
+                <Image
+                  class="carousel-media"
+                  src={slide.src}
+                  alt={slide.alt}
+                  widths={[640, 1024, 1600]}
+                  sizes="(min-width: 68rem) 64rem, 100vw"
+                  loading={index === 0 ? 'eager' : 'lazy'}
+                />
+              )}
+              </div>
               {slide.caption && <figcaption>{slide.caption}</figcaption>}
             </figure>
           </li>
@@ -106,10 +157,20 @@ const { slides, title, id } = Astro.props;
 
     let index = 0;
 
+    // Leaving a slide has to stop whatever was playing on it. Without this a
+    // clip keeps running, and keeps making noise, from a slide nobody can see.
+    function pauseAllExcept(keep: number | null) {
+      slides.forEach((slide, i) => {
+        if (i === keep) return;
+        for (const clip of slide.querySelectorAll('video')) clip.pause();
+      });
+    }
+
     function render() {
       count!.textContent = `${index + 1} / ${slides.length}`;
       previous!.disabled = index === 0;
       next!.disabled = index === slides.length - 1;
+      pauseAllExcept(index);
     }
 
     function goTo(target: number) {
@@ -160,6 +221,9 @@ const { slides, title, id } = Astro.props;
       index = 0;
       render();
     });
+
+    // Closing the popup leaves nothing visible, so nothing should be playing.
+    carousel.addEventListener('carousel:stop', () => pauseAllExcept(null));
 
     render();
     controls.hidden = false;

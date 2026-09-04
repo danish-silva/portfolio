@@ -16,13 +16,14 @@ interface Props {
 }
 
 const { project, headingId } = Astro.props;
-const { title, summary, startDate, endDate, ongoing, tags, tools, links, cover, gallery, video } =
+const { title, summary, startDate, endDate, ongoing, tags, tools, links, cover, gallery } =
   project.data;
 const { Content } = await render(project);
 const dates = formatRange(startDate, endDate, ongoing);
 
-// The cover leads the carousel, then the gallery in order. The card on the
-// projects grid keeps showing the cover on its own and never cycles.
+// The cover leads the carousel, then the gallery in order, stills and clips
+// interleaved. The card on the projects grid keeps showing the cover on its
+// own and never cycles.
 const slides = [...(cover ? [{ src: cover.src, alt: cover.alt }] : []), ...gallery];
 
 // Only GitHub links get the mark. Anything else stays a plain button rather
@@ -70,15 +71,6 @@ const isDownload = (url: string) => url.toLowerCase().endsWith('.pdf');
   <div class="prose project-body">
     <Content />
   </div>
-
-  {
-    video && (
-      <figure class="project-video">
-        <video controls preload="metadata" src={video.src} poster={video.poster?.src} />
-        {video.caption && <figcaption>{video.caption}</figcaption>}
-      </figure>
-    )
-  }
 
   {
     tools.length > 0 && (

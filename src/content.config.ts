@@ -37,25 +37,31 @@ const projects = defineCollection({
             alt: z.string(),
           })
           .optional(),
+        // A slide is either a still or a clip, and the two interleave, because
+        // the order that explains a project is not the order that separates
+        // images from video.
+        //
+        // Stills sit beside index.md so image() can optimise them at build
+        // time. Astro does not process video, so clips live under
+        // public/media/<slug>/ and are referenced by absolute path. Keep them
+        // under Cloudflare's 25 MiB per file asset limit or the deploy fails.
         gallery: z
           .array(
-            z.object({
-              src: image(),
-              alt: z.string(),
-              caption: z.string().optional(),
-            }),
+            z.union([
+              z.object({
+                src: image(),
+                alt: z.string(),
+                caption: z.string().optional(),
+              }),
+              z.object({
+                video: z.string().startsWith('/media/'),
+                poster: image().optional(),
+                alt: z.string(),
+                caption: z.string().optional(),
+              }),
+            ]),
           )
           .default([]),
-        // Video files are not processed by Astro, so they live under
-        // public/media/<slug>/ and are referenced by absolute path, or by an
-        // external URL.
-        video: z
-          .object({
-            src: z.string(),
-            poster: image().optional(),
-            caption: z.string().optional(),
-          })
-          .optional(),
         // Tie breaker only. The grid sorts newest first on the dates above;
         // this decides between two projects that ran over the same period.
         order: z.number().int().default(100),

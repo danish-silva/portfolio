@@ -77,6 +77,9 @@ const tagsInUse = PROJECT_TAGS.filter((tag) => projects.some((p) => p.data.tags.
     const goBack = pushedState && !fromHistory;
     pushedState = false;
     openDialog = null;
+    // A clip left playing in the carousel would keep going, and keep making
+    // noise, behind a popup that is no longer on screen.
+    dialog.querySelector('[data-carousel]')?.dispatchEvent(new CustomEvent('carousel:stop'));
     dialog.close();
     if (goBack) history.back();
   }

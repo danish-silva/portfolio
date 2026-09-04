@@ -92,6 +92,9 @@ const tagsInUse = PROJECT_TAGS.filter((tag) => projects.some((p) => p.data.tags.
       openDialog = dialog;
       dialog.showModal();
       dialog.scrollTop = 0;
+      dialog
+        .querySelector('[data-carousel]')
+        ?.dispatchEvent(new CustomEvent('carousel:reset'));
       history.pushState({ project: link.dataset.projectLink }, '', link.href);
       pushedState = true;
       return;

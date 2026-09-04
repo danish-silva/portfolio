@@ -3,9 +3,8 @@
 // the standalone /projects/<slug> page, so there is one source of markup.
 // The title is an h1 in both places: a modal dialog is its own document-like
 // context, and closed dialogs are not in the accessibility tree.
-import { Image } from 'astro:assets';
 import { render, type CollectionEntry } from 'astro:content';
-import ImageSlot from './ImageSlot.astro';
+import ProjectCarousel from './ProjectCarousel.astro';
 import GitHubIcon from './icons/GitHubIcon.astro';
 import Icon from './icons/Icon.astro';
 import TagList from './TagList.astro';
@@ -21,6 +20,10 @@ const { title, summary, startDate, endDate, ongoing, tags, tools, links, cover, 
   project.data;
 const { Content } = await render(project);
 const dates = formatRange(startDate, endDate, ongoing);
+
+// The cover leads the carousel, then the gallery in order. The card on the
+// projects grid keeps showing the cover on its own and never cycles.
+const slides = [...(cover ? [{ src: cover.src, alt: cover.alt }] : []), ...gallery];
 
 // Only GitHub links get the mark. Anything else stays a plain button rather
 // than borrowing an icon that does not belong to it.
@@ -62,20 +65,7 @@ const isDownload = (url: string) => url.toLowerCase().endsWith('.pdf');
     <TagList tags={tags} />
   </header>
 
-  <figure class="project-cover">
-    {
-      cover ? (
-        <Image
-          src={cover.src}
-          alt={cover.alt}
-          widths={[640, 1024, 1600]}
-          sizes="(min-width: 68rem) 64rem, 100vw"
-        />
-      ) : (
-        <ImageSlot label={`cover image for ${title}`} />
-      )
-    }
-  </figure>
+  <ProjectCarousel slides={slides} title={title} id={headingId} />
 
   <div class="prose project-body">
     <Content />
@@ -87,26 +77,6 @@ const isDownload = (url: string) => url.toLowerCase().endsWith('.pdf');
         <video controls preload="metadata" src={video.src} poster={video.poster?.src} />
         {video.caption && <figcaption>{video.caption}</figcaption>}
       </figure>
-    )
-  }
-
-  {
-    gallery.length > 0 && (
-      <ul class="project-gallery">
-        {gallery.map((item) => (
-          <li>
-            <figure>
-              <Image
-                src={item.src}
-                alt={item.alt}
-                widths={[640, 1024, 1600]}
-                sizes="(min-width: 68rem) 64rem, 100vw"
-              />
-              {item.caption && <figcaption>{item.caption}</figcaption>}
-            </figure>
-          </li>
-        ))}
-      </ul>
     )
   }
 

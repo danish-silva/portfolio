@@ -22,3 +22,7 @@ dist/
 .agents/
 .claude/
 skills-lock.json
+
+# Untouched originals of media that was re-encoded or cropped for the site.
+# Kept out of the repo because they are large and the site never serves them.
+media-sources/

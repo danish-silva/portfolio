@@ -86,15 +86,15 @@ Done. Stills sit in `src/content/projects/brickpicknplace/` beside `index.md`; c
 
 ### Pitwall
 
-Written up. Files go in `src/content/projects/pitwall-rl/`, beside `index.md`; the video goes in `public/media/pitwall-rl/`.
+Done. Stills sit in `src/content/projects/pitwall-rl/` beside `index.md`; the clip sits in `public/media/pitwall-rl/`.
 
 | Asset | Status | Priority | Notes |
 | --- | --- | --- | --- |
-| Cover: the agent mid-lap on the track | regenerate | launch | Run a saved checkpoint and screenshot a frame. Pick one where the car is clearly on the racing line. |
-| Video: one completed lap | regenerate | strong | The evaluation harness already renders rollouts. 15 to 30 seconds, under 10 MB, no audio needed. This is the asset that proves the agent drives. |
-| Plot: racing line over the track geometry | regenerate | strong | Your own evaluation tooling produces this, and the writeup names it as the tool that exposed the spin-in-place failure, so it earns its place. |
-| Plot: tyre wear across a race with lap boundaries | regenerate | strong | Also produced by the evaluation harness. Shows the wear model driving the decision. |
-| Plot: reward curve from TensorBoard | regenerate | nice | Only worth including if it shows the shift after the reward redesign; a smooth curve on its own says little. |
+| Cover: title card | done | launch | `cover.png`, 900x600, exactly the 3:2 the carousel frames at. A frame of the agent driving would say more to a recruiter than a wordmark, if you would rather swap it. |
+| Screenshot: the environment | done | strong | `on_track.png`. The pygame window title bar was cropped off. |
+| Video: the trained policy driving | done | strong | `training.mp4`, 2m31s. Re-encoded from 159 MiB to 10 MiB, cropped to the pygame window, silent lead-in trimmed, audio dropped. |
+| Plot: racing line over track geometry | still missing | nice | The writeup calls this the tool that made the bad behaviour visible, and it is the one asset that would show it. Regenerating it from a saved checkpoint is the cheapest strong addition left. |
+| Plot: tyre wear against distance | still missing | nice | Wear across a race with lap boundaries and the pit stop marked. The economic half of the project has no image at all right now. |
 
 ### FireRed RL Agent
 

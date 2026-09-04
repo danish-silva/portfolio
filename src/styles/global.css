@@ -1259,11 +1259,17 @@ body:has(dialog[open]) {
 }
 
 /*
-  These sit on whatever the slide happens to be, a white schematic or a near
-  black photograph, so neither the fill nor the rim can be relied on alone.
-  Measured against both extremes: on white the dark fill carries it at 7.6:1,
-  on a dark photo the fill disappears and the rim carries it at 4.4:1. The
-  glyph never drops below 7.6:1 against its own fill.
+  These sit on whatever the slide happens to be, and that is now a wide range:
+  a white schematic, a near black photograph, and the blurred backdrops, which
+  land in the middle. A mid tone is the hard case, because it is neither light
+  enough for a dark fill to read against nor dark enough for a light rim, and
+  a single edge treatment fails there. So the control carries both, a bright
+  inner rim and a dark outer ring, and whichever one has contrast wins.
+
+  Measured across every background actually on the site, the worst case is
+  3.83:1 and the glyph never drops below 12.8:1 against its own fill. Dropping
+  the rim back to 0.45 puts the grey wall photo at 2.70:1, under the 3:1 that
+  WCAG asks of a control boundary, which is what these values are set to clear.
 */
 .carousel-button {
   display: inline-flex;
@@ -1272,9 +1278,11 @@ body:has(dialog[open]) {
   width: 2.75rem;
   height: 2.75rem;
   padding: 0;
-  border: 1px solid rgb(255 255 255 / 0.45);
+  border: 1px solid rgb(255 255 255 / 0.75);
   border-radius: 999px;
-  background: rgb(20 14 32 / 0.72);
+  background: rgb(20 14 32 / 0.85);
+  /* The outer half of the two tone edge. */
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.85);
   color: #ffffff;
   cursor: pointer;
   -webkit-backdrop-filter: blur(10px);
@@ -1293,8 +1301,8 @@ body:has(dialog[open]) {
 
 @media (hover: hover) and (pointer: fine) {
   .carousel-button:not([disabled]):hover {
-    background: rgb(20 14 32 / 0.88);
-    border-color: rgb(255 255 255 / 0.7);
+    background: rgb(20 14 32 / 0.94);
+    border-color: rgb(255 255 255 / 0.92);
   }
 }
 
@@ -1310,9 +1318,10 @@ body:has(dialog[open]) {
   top: 0.75rem;
   left: 0.75rem;
   padding: 0.25rem 0.6rem;
-  border: 1px solid rgb(255 255 255 / 0.45);
+  border: 1px solid rgb(255 255 255 / 0.75);
   border-radius: 999px;
-  background: rgb(20 14 32 / 0.72);
+  background: rgb(20 14 32 / 0.85);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.85);
   color: #ffffff;
   font-family: var(--font-mono);
   font-size: 0.75rem;

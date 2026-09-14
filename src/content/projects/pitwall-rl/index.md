@@ -25,7 +25,7 @@ gallery:
     alt: The CarRacing window with the red car mid corner on a grey track, the accumulated reward at the bottom left and the telemetry bars beside it
     caption: The wrapped CarRacing environment the agent drives. The policy sees a 96 by 96 crop of this, stacked four deep, alongside the wear, lap and compound vector, because none of that is visible in the image itself.
   - video: /media/pitwall-rl/training.mp4
-    poster: ./training_poster.jpg
+    poster: ./training_poster.webp
     alt: Recording of the trained agent driving the CarRacing track, with the accumulated reward climbing in the corner of the window
     caption: An evaluation episode run from the best checkpoint on a fixed track. Watching a single episode like this is what exposed the failure the aggregate numbers hid, where the agent span on the spot and never completed a lap.
 order: 40

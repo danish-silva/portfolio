@@ -1,0 +1,21 @@
+# Cloudflare Workers static assets reads this file.
+#
+# Astro fingerprints everything it emits into /_astro/, so those files are
+# already served immutable. Video and the datasheet live in public/ under
+# stable names, so they get a long but finite max-age: if one is replaced with
+# the same filename, a visitor who has it cached keeps the old copy until this
+# expires. Rename the file or purge the cache when that matters.
+/media/*
+  Cache-Control: public, max-age=2592000
+
+/docs/*
+  Cache-Control: public, max-age=2592000
+
+/*.png
+  Cache-Control: public, max-age=2592000
+
+/*.svg
+  Cache-Control: public, max-age=2592000
+
+/*.ico
+  Cache-Control: public, max-age=2592000

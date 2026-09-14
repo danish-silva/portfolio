@@ -672,6 +672,48 @@ main {
 
 /* ---------- Hero ---------- */
 
+/*
+  The hero animates in CSS rather than through the JavaScript reveal the rest
+  of the page uses. It is above the fold, so it has nothing to wait for, and
+  being in the reveal meant the largest text on the page sat at opacity 0
+  until the observer ran. That observer was queued behind the shader bundle's
+  main thread work, which put 4.35s of render delay into largest contentful
+  paint for text that was in the HTML from the first byte. A CSS animation
+  starts at first paint, so the same motion costs nothing.
+*/
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+}
+
+.hero > * {
+  /* backwards, not both: the delay needs the `from` state, but once the
+     animation has finished the element should fall back to its own styles
+     rather than stay pinned by the animation. Nothing can leave the hero
+     stuck invisible that way. */
+  animation: hero-enter var(--dur-reveal) var(--ease-out) backwards;
+}
+
+.hero > *:nth-child(2) {
+  animation-delay: 70ms;
+}
+
+.hero > *:nth-child(3) {
+  animation-delay: 140ms;
+}
+
+.hero > *:nth-child(4) {
+  animation-delay: 210ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero > * {
+    animation: none;
+  }
+}
+
 .hero {
   container-type: inline-size;
   padding-block: clamp(4rem, 11vw, 8rem) clamp(3rem, 7vw, 5rem);

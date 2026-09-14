@@ -35,6 +35,12 @@ const { slides, title, id } = Astro.props;
 
 const isVideo = (slide: Slide): slide is VideoSlide => 'video' in slide;
 
+// Clips are rendered with preload="none", not "metadata". Every popup on the
+// home page is in the DOM while closed, and metadata preloading fetched all of
+// them on first load: 966kB of video before the visitor had opened anything.
+// The poster is what a slide shows until play is pressed, so a video slide
+// should always carry one.
+
 // Slides are presented in a fixed 3:2 frame, so anything shot in another shape
 // leaves the frame part empty. A blurred, dimmed copy of the media fills that
 // space, which reads as deliberate where a flat panel reads as a gap. Media
@@ -88,7 +94,7 @@ function backdropFor(slide: Slide) {
                   class="carousel-media"
                   controls
                   playsinline
-                  preload="metadata"
+                  preload="none"
                   src={slide.video}
                   poster={slide.poster?.src}
                   aria-label={slide.alt}

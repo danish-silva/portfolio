@@ -27,11 +27,11 @@ gallery:
     alt: Camera frame showing a blue and a red brick on the base plate, both marked VERIFIED, with the build zone grid overlaid and a counter reading 152 of 168 studs free and 118 slots
     caption: An early frame taken before the camera went onto the arm. Both bricks are verified, and the grid reports 152 of 168 studs free with 118 legal slots left to place into.
   - video: /media/brickpicknplace/demo.mp4
-    poster: ./demo_poster.jpg
+    poster: ./demo_poster.webp
     alt: The UR3e picking bricks off the table and placing them onto the base plate
     caption: The full system running, with the arm working through a figure a brick at a time.
   - video: /media/brickpicknplace/first_iteration.mp4
-    poster: ./first_iteration_poster.jpg
+    poster: ./first_iteration_poster.webp
     alt: Recording of the detector window finding four bricks on the workspace and labelling each with its colour, size, angle and confidence, with no build zone grid drawn over the plate
     caption: The first iteration, recorded before the work zone corners and the plate corners had been set. The node finds the bricks on the table, but with no calibrated grid behind it there is nowhere yet to say they can go.
   - src: ./rosbag_image_setup2.png

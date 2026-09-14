@@ -16,10 +16,20 @@ import { background } from '../data/background';
 interface Props {
   title: string;
   description?: string;
+  /* A page specific preview image. Project pages pass their cover; everything
+     else falls back to the card built from the name and the keyword row. */
+  image?: string;
+  /* 404 and anything else that should not be indexed or treated as canonical. */
+  noindex?: boolean;
 }
 
-const { title, description = profile.tagline } = Astro.props;
+const { title, description = profile.tagline, image, noindex = false } = Astro.props;
 const fullTitle = title === profile.name ? title : `${title} | ${profile.name}`;
+
+// Open Graph and canonical both need absolute URLs, so everything here is
+// resolved against `site` in astro.config.mjs rather than left site relative.
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(image ?? '/og-default.png', Astro.site).href;
 ---
 
 <!doctype html>
@@ -37,7 +47,34 @@ const fullTitle = title === profile.name ? title : `${title} | ${profile.name}`;
       labels, none of which are the LCP element.
     -->
     <link rel="preload" href={geistLatin} as="font" type="font/woff2" crossorigin />
-    <!-- Favicon, canonical and Open Graph tags are added in the polish step. -->
+
+    <!--
+      SVG first for browsers that take it, ICO as the fallback, and the PNG
+      for iOS, which ignores both. The mark is purple rather than the page
+      background: #0e0b16 reaches only 1.21:1 against Chrome's dark tab strip,
+      so a site coloured icon would be invisible in the one place it is meant
+      to identify the tab.
+    -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={profile.name} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={`${profile.name}, ${description}`} />
+    <meta property="og:locale" content="en_AU" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <script is:inline>
       // Arm the scroll reveal before the first paint. Doing this here rather
       // than in the module below is what stops content painting and then

@@ -33,8 +33,8 @@ Where files go:
 | Asset | Where | Status | Priority | Notes |
 | --- | --- | --- | --- | --- |
 | Resume PDF | `public/Danish-Silva-Resume.pdf` | done | launch | In place, with the typo, date format and em dash corrected. |
-| Favicon | `public/favicon.svg` | generate | launch | Initials mark unless you want something else. |
-| Open Graph image, 1200 by 630 | `public/og-default.png` | generate | launch | Name, tagline, location on a plain background. Shows when the link is shared on LinkedIn. Absolute URLs resolve against `https://danishsilva.com`, now set in the Astro config. |
+| Favicon | `public/favicon.svg`, `.ico`, `apple-touch-icon.png` | done | launch | DS in Geist on a purple rounded square. Purple rather than the page colour because `#0e0b16` reaches only 1.21:1 against Chrome's dark tab strip. Say the word if you want a different mark. |
+| Open Graph image, 1200 by 630 | `public/og-default.png` | done | launch | Name, course and the keyword row over the site's gradient, set in the real Geist. Project pages use their own cover instead, so this is the fallback for the home page and the two projects without one. |
 | Hero portrait | `src/assets/portrait.jpg` | photograph | nice | Optional. The hero works without one. If included: plain background, shoulders up, square crop. |
 | Background gradient | n/a | done | launch | No asset needed. The background is rendered live by @shadergradient/react; its settings live in `src/data/background.ts`. |
 
@@ -138,3 +138,5 @@ These are the items where waiting until week six would hurt. Everything else can
 ## Launch minimum
 
 The site can go live with: resume PDF, favicon, OG image, and one cover per published project. Nothing else on this list blocks launch.
+
+Favicon and OG image are done. Covers exist for the step tracker, BrickPickNPlace and Pitwall. FireRed and the UR3e visual servoing still have none, so they show a labelled empty slot on the page and fall back to the default card when their link is shared.

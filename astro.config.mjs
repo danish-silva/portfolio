@@ -4,7 +4,10 @@ import react from '@astrojs/react';
 export default defineConfig({
   // Absolute base for canonical and Open Graph URLs. The custom domain is
   // still attached to the Worker via the Cloudflare dashboard, not here.
-  site: 'https://danishsilva.com',
+  // The www host is the one that answers: https://danishsilva.com 301s to it,
+  // and a canonical URL should name the address that serves the page rather
+  // than one that redirects.
+  site: 'https://www.danishsilva.com',
   output: 'static',
   // React is here for one thing only: the WebGL gradient background
   // (src/components/ShaderBackground.tsx). Everything else on the site is

@@ -16,9 +16,13 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
+
+// A project's own cover makes a better link preview than the generic card.
+// It is already a built asset, so this is the optimised file, not the source.
+const cover = project.data.cover?.src.src;
 ---
 
-<BaseLayout title={project.data.title} description={project.data.summary}>
+<BaseLayout title={project.data.title} description={project.data.summary} image={cover}>
   <nav class="breadcrumb" aria-label="Breadcrumb">
     <a class="button button-primary breadcrumb-back" href="/#projects">
       <Icon name="arrow-left" />Back to Projects

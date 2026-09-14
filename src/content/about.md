@@ -2,12 +2,12 @@
 
 Hi, I'm Danish.
 
-I'm a final-year Mechatronics Engineering student at UTS working toward a career as a robotics engineer. I'm happiest at the intersection of electronics, embedded systems, and mechanical design, building things that actually work in the real world.
+I'm in my final year of Mechatronics Engineering at UTS, heading for robotics. The work I like best sits where the electronics, the firmware and the mechanical side all have to agree with each other, which is usually where things go wrong and usually where they get interesting.
 
-My core strength is hands-on hardware: taking a project from a blank schematic through PCB design, power, sensing, and control to a tested, working system. I back that with strong mechanical CAD skills, from concept through to fabrication-ready drawings, and I'm expanding into computer vision as I move deeper into robotics.
+Hardware is what I'm most confident in. I'm comfortable starting at a blank schematic and going the whole way through, power, sensing, control, board layout, to something on a bench doing what it was meant to do. I can take a mechanical design from a rough idea to drawings someone could actually make parts from, and I've been steadily pulling computer vision into the mix as I get further into robotics.
 
-Recently I led a small engineering team through an in-house compliance test system for an industrial client, taking it from an idea to a working, documented deliverable. That taught me as much about communication and coordination as it did about circuits.
+The other half of it is people. This year I led a seven person team building a compliance test rig for an industrial client, from a brief to a working, documented rig. I got a lot out of the engineering. I got more out of learning how to run it.
 
-I care about doing things properly, learning continuously, and solving real problems with hardware. I'm currently looking for graduate roles across robotics, embedded, electronics, computer vision, and mechanical design.
+Right now I'm pushing further into robotics and vision, and I'm after a graduate role close to hardware.
 
 Have a look at my projects below, and feel free to get in touch.

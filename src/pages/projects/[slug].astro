@@ -3,6 +3,7 @@
 // engine, or a visitor without JS sees; on the home page the same content
 // opens in a popup.
 import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectDetail from '../../components/ProjectDetail.astro';
 import Icon from '../../components/icons/Icon.astro';
@@ -18,8 +19,15 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 
 // A project's own cover makes a better link preview than the generic card.
-// It is already a built asset, so this is the optimised file, not the source.
-const cover = project.data.cover?.src.src;
+//
+// Resized rather than linked directly. `cover.src.src` is the emitted original,
+// which for the FireRed cover is a 2.5MB PNG, and a link preview that large is
+// one some scrapers will give up on. 1200px wide is the width Open Graph asks
+// for, and JPEG rather than WebP because scraper support for WebP is still
+// uneven in a way browsers' is not.
+const cover = project.data.cover
+  ? (await getImage({ src: project.data.cover.src, width: 1200, format: 'jpeg', quality: 82 })).src
+  : undefined;
 ---
 
 <BaseLayout title={project.data.title} description={project.data.summary} image={cover}>

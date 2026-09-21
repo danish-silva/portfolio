@@ -98,11 +98,11 @@ Done. Stills sit in `src/content/projects/pitwall-rl/` beside `index.md`; the cl
 
 ### FireRed RL Agent
 
-Gallery done, cover outstanding. Files go in `src/content/projects/firered-rl-agent/`, beside `index.md`.
+Done. Files go in `src/content/projects/firered-rl-agent/`, beside `index.md`.
 
 | Asset | Status | Priority | Notes |
 | --- | --- | --- | --- |
-| Cover | you | launch | Danish is making one. The card shows a labelled empty slot until it lands. |
+| Cover | done | launch | `cover.png`, 1620x1080. Uses the official FireRed logo and the game's tile art, which is Nintendo's. Danish's call, recorded here so it is not a surprise later. |
 | Diagram: the reward function | done | strong | `reward_design.png`. All thirteen terms with their real weights, read straight out of `reward_shaper.py`, and the exploit each one closes. Built rather than captured, because the training logs are gone. |
 | TensorBoard reward breakdown | gone | nice | The original pick for this project, but `runs/` is gitignored and no longer on this machine. Only a fresh training run brings it back, which needs the ROM and the setup again. |
 | Observation stack, 84x84 greyscale stacked 3 | regenerate | nice | Needs the ROM and the env. Shows what the network actually receives rather than what the game looks like. |

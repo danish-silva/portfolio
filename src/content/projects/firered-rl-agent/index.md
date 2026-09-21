@@ -16,7 +16,9 @@ tools:
 links:
   - label: Source Code
     url: https://github.com/danish-silva/FireRedRLAgent
-# TODO: cover. Danish is making one. Until then the card shows an empty slot.
+cover:
+  src: ./cover.png
+  alt: The Pokémon FireRed Version logo over the game's overworld map art, captioned Reinforcement Learning Agent
 gallery:
   - src: ./reward_design.png
     alt: Two columns listing the thirteen reward terms and their weights, what the agent is paid for and what it is charged for, with notes underneath on the exploit each one closes

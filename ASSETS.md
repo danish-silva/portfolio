@@ -98,13 +98,17 @@ Done. Stills sit in `src/content/projects/pitwall-rl/` beside `index.md`; the cl
 
 ### FireRed RL Agent
 
-Written up. Files go in `src/content/projects/firered-rl-agent/`, beside `index.md`.
+Gallery done, cover outstanding. Files go in `src/content/projects/firered-rl-agent/`, beside `index.md`.
 
 | Asset | Status | Priority | Notes |
 | --- | --- | --- | --- |
-| Cover: TensorBoard per-component reward breakdown | regenerate | launch | The one asset that carries this project, because it is the evidence the reward function works. Re-run a short training job or open an existing log. |
-| Plot: unique tiles and distinct maps over training steps | regenerate | strong | Exploration climbing is the specific claim the writeup makes. This is the picture of it. |
-| Video: a short rollout of the agent playing | regenerate | nice | A smoke-test run is enough. Do not include game audio, and keep it brief. |
+| Cover | you | launch | Danish is making one. The card shows a labelled empty slot until it lands. |
+| Diagram: the reward function | done | strong | `reward_design.png`. All thirteen terms with their real weights, read straight out of `reward_shaper.py`, and the exploit each one closes. Built rather than captured, because the training logs are gone. |
+| TensorBoard reward breakdown | gone | nice | The original pick for this project, but `runs/` is gitignored and no longer on this machine. Only a fresh training run brings it back, which needs the ROM and the setup again. |
+| Observation stack, 84x84 greyscale stacked 3 | regenerate | nice | Needs the ROM and the env. Shows what the network actually receives rather than what the game looks like. |
+| Diagram: the EWRAM memory map | generate | nice | `memory_reader.py` finds party, coordinates, map id and badge flags by offset, and found SaveBlock1 empirically. Nothing on the page shows that yet. |
+
+Gameplay screenshots are Nintendo's work. Every asset above is Danish's own, which is both safer and more informative here.
 
 ### Separately Excited DC Motor Drive Simulation
 

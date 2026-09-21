@@ -16,18 +16,11 @@ tools:
 links:
   - label: Source Code
     url: https://github.com/danish-silva/FireRedRLAgent
-# TODO: the TensorBoard reward breakdown is the asset that carries this one,
-# since it is the evidence the reward function works.
-# cover:
-#   src: ./cover.png
-#   alt: TensorBoard showing the per-component reward breakdown during a training run
-# gallery:
-#   - src: ./exploration.png
-#     alt: Unique tiles visited and distinct maps explored rising over training steps
-#     caption: Exploration climbing, which is the reward doing its job.
-# video:
-#   src: /media/firered-rl-agent/rollout.mp4
-#   caption: The agent moving through the opening area under its own policy.
+# TODO: cover. Danish is making one. Until then the card shows an empty slot.
+gallery:
+  - src: ./reward_design.png
+    alt: Two columns listing the thirteen reward terms and their weights, what the agent is paid for and what it is charged for, with notes underneath on the exploit each one closes
+    caption: "The reward is thirteen separate terms summed every step, and each one exists to close a way of scoring without making progress. They are logged to TensorBoard individually rather than only as a total, because a single curve tells you something is working and the breakdown tells you which part."
 order: 45
 draft: false
 ---

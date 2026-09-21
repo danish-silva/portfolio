@@ -48,13 +48,17 @@ No images planned. The Optik Consultancy entry is text only, and anything showin
 
 ### UR3e RealSense Visual Servoing
 
+Done. Cover sits beside `index.md`; both clips are in `public/media/ur3e-realsense-visual-servoing/`.
+
 | Asset | Status | Priority | Notes |
 | --- | --- | --- | --- |
-| Cover: UR3e with the RealSense D435 mounted on the tool | exists | launch | A still pulled from your footage is fine. Drop it beside `src/content/projects/ur3e-realsense-visual-servoing/index.md` as `cover.jpg` and uncomment the `cover` block. |
-| Demo video: arm tracking a moving checkerboard | exists | strong | You have footage and are uploading it. Put it at `public/media/ur3e-realsense-visual-servoing/demo.mp4`, under about 10 MB, and uncomment the `video` block. The most convincing asset on the site. |
-| Screenshot: OpenCV checkerboard detection overlay with depth readout | confirm | strong | Regenerable from a saved rosbag or recorded frames if you have them, otherwise `lab`. |
-| Diagram: IBVS pipeline, camera to detection to image error to interaction matrix to Jacobian pseudoinverse to joint velocities | generate | strong | Inline SVG, no access needed. |
-| Screenshot: ROS node graph or rosbridge terminal at 15 to 20 Hz | confirm | nice | Only if a screenshot already exists. |
+| Cover: the rig in the lab | done | launch | `cover.png`, 1769x1179, already 3:2. |
+| Demo video: arm tracking a moving checkerboard | done | strong | 63.7 MiB to 5.9 MiB. Dropped to 720p, which is still above the 1024px the carousel draws it at, and the audio track was silent. |
+| Simulation video: simulated UR3 driven by the real vision process | done | strong | 98.9 MiB to 7.4 MiB. Kept at 1080p, unlike the demo, because the value is the fine text across three windows and 720p would have blurred it. |
+| Screenshot: checkerboard detection overlay with depth readout | covered | nice | The simulation clip already shows this in its left window, corners, error vectors and the live v_c readout. A separate still adds little. |
+| Diagram: the IBVS pipeline | generate | nice | Camera to detection to image error to interaction matrix to Jacobian pseudoinverse to joint velocities. Inline SVG, no access needed. Would be the one asset explaining the control loop rather than showing it. |
+
+Three people are identifiable in the cover and the demo clip, two of them teammates. Worth a thought before this is public.
 
 ### MEMS-Based Step Tracker
 

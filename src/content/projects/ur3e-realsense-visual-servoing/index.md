@@ -17,15 +17,18 @@ tools:
 links:
   - label: Source Code
     url: https://github.com/danish-silva/UR3eVisualServoing
-# TODO: footage exists and is being uploaded. Drop the file into
-# public/media/ur3e-realsense-visual-servoing/ and a still beside this file,
-# then uncomment. Until then the page renders a labelled empty slot.
-# cover:
-#   src: ./cover.jpg
-#   alt: UR3e arm with the RealSense D435 mounted on the tool, facing a checkerboard
-# video:
-#   src: /media/ur3e-realsense-visual-servoing/demo.mp4
-#   caption: The arm tracking the board as it is moved by hand.
+cover:
+  src: ./cover.png
+  alt: The UR3e in the lab with the RealSense D435 mounted on the tool, and a checkerboard held up in front of it
+gallery:
+  - video: /media/ur3e-realsense-visual-servoing/demo.mp4
+    poster: ./demo_poster.webp
+    alt: The UR3e following a checkerboard as it is moved by hand in front of the camera on its tool
+    caption: The arm holding onto the board as it is moved by hand. The camera is on the tool, so it moves with the arm, and the controller never works out where the board is in the room. It only ever sees how far the corners have drifted from where they should sit in the image.
+  - video: /media/ur3e-realsense-visual-servoing/simulation.mp4
+    poster: ./simulation_poster.webp
+    alt: A desktop with three windows, the live RealSense feed with the checkerboard corners detected and error vectors drawn, a simulated UR3 arm in a 3D plot, and the camera image plane
+    caption: "A simulated UR3 standing in for the real one. The vision process on the left is the real one running against the real camera, and it streams the same six element camera velocity over the same socket it always does. Swapping the arm for a simulation needed no change on the vision side at all, which is what putting one message between the two halves buys you."
 order: 10
 draft: false
 ---
